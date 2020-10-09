@@ -1,0 +1,33 @@
+p {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: $black;
+}
+
+.input-label {
+  @include inputLabel;
+}
+
+.list-title {
+  @include listTitle;
+}
+
+.list-value {
+  @include listValue;
+}
+
+.post-title {
+  @include postList;
+}
+
+.small-input-label {
+  @include inputLabelSm;
+}
+
+.ant-select-selector, .ant-input-number {
+  background: #FFFEFE !important;
+  border: 1px solid #CACACA !important;
+  box-sizing: border-box;
+  border-radius: 5px !important;
+}

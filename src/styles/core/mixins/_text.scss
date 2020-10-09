@@ -1,0 +1,42 @@
+
+@mixin headingText {
+  font-size: 22px;
+  font-weight: normal;
+  line-height: normal;
+  margin-bottom: 0;
+  color: $textGrey;
+}
+
+@mixin inputLabel {
+  font-size: 14px;
+  line-height: 16px;
+  color: $black;
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+
+@mixin listTitle {
+  font-size: 14px;
+  line-height: 16px;
+  color: $textLight;
+}
+
+@mixin listValue {
+  font-size: 14px;
+  line-height: 16px;
+  color: $black;
+}
+
+@mixin postList {
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: bold;
+  color: $bgGrey;
+}
+
+@mixin inputLabelSm {
+  font-size: 12px;
+  line-height: normal;
+  font-weight: normal;
+  color: $textLightGrey;
+}
