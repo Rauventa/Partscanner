@@ -7,6 +7,15 @@
   color: $textGrey;
 }
 
+@mixin textDanger {
+  color: $textDanger;
+}
+
+@mixin primaryText {
+  color: $textBlue;
+  font-weight: bold;
+}
+
 @mixin inputLabel {
   font-size: 14px;
   line-height: 16px;
@@ -32,6 +41,18 @@
   line-height: 19px;
   font-weight: bold;
   color: $bgGrey;
+}
+
+@mixin headingGreyMd {
+  font-size: 16px;
+  font-weight: normal;
+  color: $textLightGrey;
+}
+
+@mixin headingBlackMdBig {
+  font-weight: bold;
+  font-size: 18px;
+  color: $black;
 }
 
 @mixin inputLabelSm {

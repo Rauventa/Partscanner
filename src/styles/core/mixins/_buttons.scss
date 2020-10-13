@@ -1,0 +1,31 @@
+@mixin primaryButton {
+  background: $textBlue !important;
+  border-radius: 5px !important;
+  border: 1px solid $textBlue !important;
+  padding: 0.5rem 2.5rem !important;
+  height: auto !important;
+  color: $white;
+
+  &:hover {
+    background-color: transparent !important;
+    color: $textBlue !important;
+  }
+
+  span {
+    font-size: 16px;
+    line-height: 18px;
+  }
+}
+
+@mixin secondaryButton {
+
+}
+
+@mixin buttonDisabled {
+  background-color: transparent !important;
+  border: 1px solid #E0E0E0 !important;
+  border-radius: 5px !important;
+  padding: 0.5rem 2.5rem !important;
+  height: auto !important;
+  color: #D5D2D2 !important;
+}
