@@ -104,6 +104,10 @@ button.table-btn, button[disabled].table-btn  {
   @include primaryButton;
 }
 
+.ant-btn-secondary {
+  @include secondaryButton;
+}
+
 .ant-btn[disabled] {
   @include buttonDisabled;
 }

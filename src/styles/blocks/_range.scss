@@ -1,4 +1,4 @@
-.Range {
+.Range, .RangeItem {
 
   &__heading {
     width: 100%;
@@ -65,7 +65,7 @@
       &-files, &-valid {
         display: flex;
         flex-direction: column;
-        width: 100%;
+        width: calc(100% - 10px);
         height: 100%;
       }
 
@@ -95,6 +95,8 @@
       }
 
       &-valid {
+        margin-left: 10px;
+
         .validContent {
           background: #FBFBFB;
           border: 1px solid #CFCFCF;
@@ -394,5 +396,251 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+  }
+}
+
+.RangeItem {
+
+  .ant-input {
+    padding: 0.5rem 1rem !important;
+    border-radius: 5px !important;
+  }
+
+  &__heading {
+    h1 {
+      span {
+        color: $textLightGrey;
+        margin-right: 1rem;
+        font-size: 18px;
+        transition: all .3s;
+
+        &:hover {
+          cursor: pointer;
+          color: $textLight;
+        }
+      }
+    }
+  }
+
+  &__name {
+    padding: 2.5rem;
+  }
+
+  &__template {
+    padding: 0 2.5rem 2.5rem 2.5rem;
+  }
+
+  &__type {
+    padding: 0 2.5rem 2.5rem 2.5rem;
+
+    &_text {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      p {
+        margin-bottom: 0;
+        margin-left: 1rem;
+      }
+    }
+
+    &_select {
+      margin-top: 1rem;
+      background-color: #F9F9F9;
+      padding: 1rem;
+
+      .select-list {
+
+        .input-label {
+          margin-bottom: 1rem;
+        }
+
+        &__container {
+
+          .ant-radio-group {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            height: 10vh;
+            padding-right: 2rem;
+
+            .ant-radio-wrapper {
+              //margin-bottom: 20px;
+            }
+
+            .ant-input {
+              padding: 0.5rem 0.75rem 0.5rem 1rem !important;
+              border-radius: 5px;
+              width: 40px !important;
+              margin-left: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__pool {
+    padding: 0 2.5rem 2.5rem 2.5rem;
+
+    &_heading {
+      h1 {
+        @include headingText;
+        color: $black;
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+      }
+
+      p {
+        font-size: 16px;
+      }
+    }
+
+    &_static {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+
+      p {
+        span {
+          font-weight: bold;
+        }
+      }
+
+      .ant-btn {
+        padding: 0.5rem !important;
+      }
+    }
+
+    .ant-table {
+      &-thead {
+         & > tr {
+           & > th {
+             background-color: #E3E3E3;
+             color: #04A2D3;
+           }
+         }
+       }
+
+      &-tbody {
+
+        & > tr {
+          transition: all .3s;
+
+          &:hover {
+            cursor: pointer;
+
+            & > td {
+              background-color: #F9F9F9 !important;
+              color: $black;
+
+              p {
+                color: $black;
+              }
+            }
+          }
+        }
+      }
+
+      .selectedRow {
+        background-color: #00ADE3 !important;
+        color: $white;
+
+        p {
+          color: $white;
+        }
+
+        &:hover {
+          & > td {
+            background-color: #04A2D3 !important;
+            color: $white;
+
+            p {
+              color: $white;
+            }
+          }
+        }
+      }
+
+      p {
+        margin-bottom: 0;
+      }
+
+      .blue-text {
+        color: #04A2D3;
+      }
+    }
+  }
+
+  &__columns {
+    padding: 0 2.5rem 2.5rem 2.5rem;
+
+    &_heading {
+      h1 {
+        @include headingText;
+        color: $black;
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+      }
+
+      p {
+        font-size: 16px;
+      }
+    }
+
+    &_content {
+      background-color: #F9F9F9;
+      padding: 2.5rem 10rem;
+
+      &-icon {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .ant-row-center {
+        &:not(:last-child) {
+          margin-bottom: 1rem;
+        }
+      }
+
+      .ant-select {
+        width: 100%;
+      }
+    }
+  }
+
+  &__correct {
+    padding: 0 2.5rem 2.5rem 2.5rem;
+  }
+
+  &__check {
+    display: flex;
+    flex-direction: column;
+    padding: 0 2.5rem 2.5rem 2.5rem;
+
+    &_buttons {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &-first {
+        button {
+          &:not(:last-child) {
+            margin-right: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .Range {
+    display: none;
   }
 }

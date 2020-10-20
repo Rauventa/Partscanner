@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
 import {Select, Switch, Radio, InputNumber, Upload, message, Button, Table, Row, Col, Input} from 'antd';
-import {moqArray} from "../../moq/moq";
-import cloud from '../../assets/images/cloud.svg';
+import {useHistory} from 'react-router-dom';
+import {moqArray} from "../../../moq/moq";
+import cloud from '../../../assets/images/cloud.svg';
 
-import search from '../../assets/images/Table/fields/search.svg';
-import filter from '../../assets/images/Table/fields/filter.svg';
+import search from '../../../assets/images/Table/fields/search.svg';
+import filter from '../../../assets/images/Table/fields/filter.svg';
 
-import excel from '../../assets/images/Table/excel.png'
-import csv from '../../assets/images/Table/csv.png'
+import excel from '../../../assets/images/Table/excel.png'
+import csv from '../../../assets/images/Table/csv.png'
+import { NavLink } from 'react-router-dom';
 
 export const Range = () => {
 
@@ -17,6 +19,8 @@ export const Range = () => {
     const [counter, setCounter] = useState(1);
     const [selectedRows, setSelectedRows] = useState([]);
     const [summary, setSummary] = useState([]);
+
+    const history = useHistory();
 
     const { Option } = Select;
     const { Dragger } = Upload;
@@ -111,7 +115,7 @@ export const Range = () => {
             render: (value, record) => (
                 record.settings ?
                 <Button type="primary" className={'table-btn'} disabled>Настроить</Button> :
-                    <Button type="primary" className={'table-btn'}>Настроить</Button>
+                    <Button type="primary" className={'table-btn'} onClick={() => redirectHandler(record)}>Настроить</Button>
             )
         },
         {
@@ -152,6 +156,11 @@ export const Range = () => {
             }
         },
     };
+
+    const redirectHandler = (item: any) => {
+        history.push(`/${item.key}`, {item: item})
+    };
+
     return (
         <div className="Range">
 
@@ -160,6 +169,7 @@ export const Range = () => {
             </div>
 
             {moqArray.filter(item => item.supplier === title).map(item => {
+                // @ts-ignore
                 return (
                     //@ts-ignore
                     <React.Fragment key={item}>
@@ -184,7 +194,9 @@ export const Range = () => {
                             <div className="Range__info_heading">
                                 <h1>
                                     {item.supplier}
-                                    <span className="far fa-edit"/>
+                                    <span
+                                        className="far fa-edit"
+                                    />
                                 </h1>
                             </div>
 
@@ -256,7 +268,7 @@ export const Range = () => {
                                             </Dragger>
                                         </div>
                                     </Col>
-                                    <Col xs={2} sm={4} md={11} lg={11} xl={11}>
+                                    <Col xs={2} sm={4} md={12} lg={12} xl={12}>
                                         <div className="Range__stock_content-valid">
                                             <p className={'input-label'}>
                                                 Срок годности ассортимента

@@ -183,3 +183,69 @@ export const moqArray = [
         ]
     }
 ];
+
+export const moqHeads = [
+    {
+        number: 1,
+        a: 'Производитель',
+        b: 'Каталожный номер',
+        c: 'Наименование',
+        d: 'Артикул',
+        e: 'Цена, руб.',
+        f: 'Наличие, шт.',
+    },
+    {
+        number: 2,
+        a: 'Камаз',
+        b: 11,
+        c: 'Деталь двигателя',
+        d: 'NXX-23332K7',
+        e: 122200,
+        f: 123
+    },
+    {
+        number: 3,
+        a: 'Жигули',
+        b: 10,
+        c: 'Тормоза',
+        d: 'OIO-KK9920',
+        e: 23000,
+        f: 1443
+    },
+    {
+        number: 4,
+        a: 'BMW',
+        b: 12,
+        c: 'Машинное масло',
+        d: 'HH-20',
+        e: 1500,
+        f: 2333
+    }
+];
+
+export const defaultColumns = [
+    {
+       name: 'Производитель',
+       value: 'customer'
+    },
+    {
+        name: 'Каталожный номер',
+        value: 'number'
+    },
+    {
+        name: 'Наименование',
+        value: 'name'
+    },
+    {
+        name: 'Артикул',
+        value: 'vendor'
+    },
+    {
+        name: 'Цена закупки',
+        value: 'price'
+    },
+    {
+        name: 'Наличие, шт.',
+        value: 'count'
+    },
+];

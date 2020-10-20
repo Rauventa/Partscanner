@@ -1,7 +1,7 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
-import {Range} from '../containers/Range'
-import { Test } from '../containers/Test';
+import {Range} from '../containers/Range/Range'
+import { RangeItem } from '../containers/Range/RangeItem';
 
 export const Router = () => {
     return (
@@ -9,8 +9,8 @@ export const Router = () => {
             <Route path={'/'} exact>
                 <Range />
             </Route>
-            <Route path={'/test'}>
-                <Test />
+            <Route path={'/:id'}>
+                <RangeItem />
             </Route>
         </Switch>
     )
