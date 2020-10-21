@@ -447,7 +447,28 @@
     &_select {
       margin-top: 1rem;
       background-color: #F9F9F9;
-      padding: 1rem;
+      padding: 1rem 2.5rem;
+
+      .ant-col {
+        &:nth-child(2) {
+          .select-list {
+            &__container {
+              .ant-radio-group {
+                height: 5rem;
+              }
+            }
+          }
+        }
+        &:nth-child(3) {
+          .select-list {
+            &__container {
+              .ant-radio-group {
+                height: 2.5rem;
+              }
+            }
+          }
+        }
+      }
 
       .select-list {
 
@@ -461,11 +482,15 @@
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
-            height: 10vh;
+            height: 7.5rem;
             padding-right: 2rem;
 
+            label {
+              width: fit-content;
+            }
+
             .ant-radio-wrapper {
-              //margin-bottom: 20px;
+              margin-bottom: 10px;
             }
 
             .ant-input {
