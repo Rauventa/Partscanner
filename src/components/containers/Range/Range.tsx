@@ -9,7 +9,7 @@ import filter from '../../../assets/images/Table/fields/filter.svg';
 
 import excel from '../../../assets/images/Table/excel.png'
 import csv from '../../../assets/images/Table/csv.png'
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 
 export const Range = () => {
 

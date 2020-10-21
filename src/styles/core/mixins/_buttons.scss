@@ -36,6 +36,34 @@
   }
 }
 
+@mixin greyLightButton {
+  background-color: transparent !important;
+  border-radius: 5px !important;
+  border: 1px solid $textGrey !important;
+  padding: 0.5rem 2.5rem !important;
+  height: auto !important;
+  color: $textGrey !important;
+
+  &:hover {
+    background-color: $textGrey !important;
+    color: $white !important;
+  }
+}
+
+@mixin blueLightButton {
+  background-color: transparent !important;
+  border-radius: 5px !important;
+  border: 1px solid $textBlue !important;
+  padding: 0.5rem 2.5rem !important;
+  height: auto !important;
+  color: $textBlue !important;
+
+  &:hover {
+    background-color: $textBlue !important;
+    color: $white !important;
+  }
+}
+
 @mixin buttonDisabled {
   background-color: transparent !important;
   border: 1px solid #E0E0E0 !important;

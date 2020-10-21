@@ -502,6 +502,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: flex-end;
+      margin-top: 1rem;
 
       p {
         span {
@@ -515,6 +516,39 @@
     }
 
     .ant-table {
+      background-color: #F8F8F8;
+
+      table {
+        border-spacing: 0 10px;
+
+        thead {
+          &>tr {
+            &>th {
+              background-color: #E3E3E3;
+              padding: 2rem;
+
+              &:first-child {
+                border-spacing: initial;
+              }
+            }
+          }
+        }
+
+        tbody {
+          &>tr {
+
+            &>td {
+              background-color: #fff;
+              padding: 2rem;
+
+              p {
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+
       &-thead {
          & > tr {
            & > th {
@@ -545,8 +579,11 @@
       }
 
       .selectedRow {
-        background-color: #00ADE3 !important;
-        color: $white;
+
+        & > td {
+          background-color: #00ADE3 !important;
+          color: $white;
+        }
 
         p {
           color: $white;
@@ -554,7 +591,7 @@
 
         &:hover {
           & > td {
-            background-color: #04A2D3 !important;
+            background-color: #00ADE3 !important;
             color: $white;
 
             p {
@@ -614,13 +651,95 @@
   }
 
   &__correct {
-    padding: 0 2.5rem 2.5rem 2.5rem;
+    padding: 1.5rem 2.5rem;
+    background-color: $bgLightGrey;
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.05);
+
+    &_is {
+      display: flex;
+      align-items: center;
+
+      p {
+        color: #04A2D3;
+        margin-bottom: 0;
+        margin-left: 10px;
+      }
+    }
+
+    &_heading {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+
+      .ant-row {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        .ant-input-affix-wrapper {
+          padding: 0 1rem !important;
+
+          .ant-input {
+            padding: 0.5rem !important;
+          }
+        }
+
+        p {
+          margin-bottom: 0;
+        }
+      }
+
+    }
+
+    .ant-table {
+      background-color: transparent;
+      font-size: 12px;
+
+      .ant-table-pagination {
+        margin: 10px 0 0 0;
+      }
+
+      table {
+        border-spacing: 0 10px;
+
+        thead {
+          &>tr {
+            &>th {
+              background-color: #EBEBEB;
+              padding: 2rem;
+              font-weight: 400;
+
+              &:first-child {
+                border-spacing: initial;
+              }
+            }
+          }
+        }
+
+        tbody {
+          &>tr {
+
+            &>td {
+              background-color: #fff;
+              padding: 1.5rem 2rem;
+              border: 0;
+
+              p {
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   &__check {
     display: flex;
     flex-direction: column;
-    padding: 0 2.5rem 2.5rem 2.5rem;
+    padding: 2.5rem;
 
     &_buttons {
       margin-top: 1rem;

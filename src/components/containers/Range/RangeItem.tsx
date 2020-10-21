@@ -1,52 +1,32 @@
 import React, {useState} from 'react';
 import {useHistory, useLocation} from 'react-router-dom'
-import {Input, Select, Row, Col, Radio, Table, Button, Checkbox} from "antd";
+import {Input, Select, Row, Col, Radio, Table, Button, Checkbox, Modal} from "antd";
 
 import excel from '../../../assets/images/Table/excel.png'
 import csv from '../../../assets/images/Table/csv.png'
 import { moqHeads, defaultColumns } from '../../../moq/moq';
 import { RangeItemRow } from './RangeItemRow';
+import search from "../../../assets/images/Table/fields/search.svg";
+import correct from "../../../assets/images/correct.svg";
 
 // @ts-ignore
 export const RangeItem = (props) => {
 
-    const [rowId, setRowId] = useState(moqHeads[0]);
+    const [rowId, setRowId] = useState({});
     const [pool, setPool] = useState([]);
-    const [column, setColumn] = useState([
-        {
-            title: 'Производитель',
-            dataIndex: 'a',
-            key: 'a',
-        },
-        {
-            title: 'Каталожный номер',
-            dataIndex: 'b',
-            key: 'b',
-        },
-        {
-            title: 'Наименование',
-            dataIndex: 'c',
-            key: 'c',
-        },
-        {
-            title: 'Артикул',
-            dataIndex: 'd',
-            key: 'd',
-        },
-        {
-            title: 'Цена закупки',
-            dataIndex: 'e',
-            key: 'e',
-        },
-        {
-            title: 'Наличие, шт.',
-            dataIndex: 'f',
-            key: 'f',
-        },
-    ]);
+    const [column, setColumn] = useState([]);
+    const [modal, setModal] = useState(false);
 
     const history = useHistory();
     const location = useLocation();
+
+    const closeModal = () => {
+      setModal(false)
+    };
+
+    const showModal = () => {
+        setModal(true)
+    };
 
     //@ts-ignore
     const item = location.state.item;
@@ -94,18 +74,26 @@ export const RangeItem = (props) => {
 
     const { Option } = Select;
 
-    const columnHandler = (value: any, name: any, index: any) => {
+    const columnHandler = (value: any, name: any, index: any, row: any) => {
 
         const newColumn = [...column];
 
-        newColumn.splice(index, 1,
+        const title = newColumn.filter(item =>
             //@ts-ignore
-                {
-                    title: name,
-                    dataIndex: value,
-                    key: value
-                }
-            );
+            item.title === row[item.dataIndex]
+        );
+
+        newColumn.splice(index + 1, 1,
+            //@ts-ignore
+            {
+                //@ts-ignore
+                title: title[index].title,
+                //@ts-ignore
+                dataIndex: value,
+                //@ts-ignore
+                key: value
+            }
+        );
 
         //@ts-ignore
         setColumn(newColumn)
@@ -123,6 +111,7 @@ export const RangeItem = (props) => {
                 const poolData = newPool.map((item, index) => {
                     return {
                         key: index,
+                        id: index + 1,
                         a: item.a,
                         b: item.b,
                         c: item.c,
@@ -133,7 +122,27 @@ export const RangeItem = (props) => {
                 });
 
                 //@ts-ignore
-                setPool(poolData)
+                setPool(poolData);
+
+                const newColumn = Object.entries(record).map(item => {
+                    return {
+                        title: item[1],
+                        dataIndex: item[0],
+                        key: item[0]
+                    }
+                });
+
+                newColumn.splice(0, 1,
+                    //@ts-ignore
+                    {
+                        title: '№',
+                        dataIndex: 'id',
+                        key: 'id'
+                    }
+                    );
+
+                //@ts-ignore
+                setColumn(newColumn)
             }
         }
     };
@@ -145,6 +154,35 @@ export const RangeItem = (props) => {
 
     return (
         <div className={'RangeItem'}>
+
+            <Modal
+                visible={modal}
+                //@ts-ignore
+                onOk={closeModal}
+                //@ts-ignore
+                onCancel={closeModal}
+                footer={[
+                    <Button className={'btn-grey-light'} onClick={closeModal}>Отменить</Button>,
+                    <Button className={'btn-blue-light'} onClick={closeModal}>Применить настройки без сохранения шаблона</Button>
+                ]}
+            >
+                <div className="modal-content">
+                    <h1>Сохранение шаблона соответствия столбцов</h1>
+                    <p>
+                        Чтобы повторно использовать настройки файла
+                        <br/>
+                        при обновлении данного прайс-листа, вы можете сохранить шаблон.
+                    </p>
+                </div>
+                <div className="modal-moq">
+                    <p className={'input-label'}>
+                        Название шаблона
+                    </p>
+                    <Input placeholder="Название" defaultValue={'Шаблон'} />
+                </div>
+                <Button type={'primary'} onClick={closeModal}>Применить настройки и сохранить шаблон</Button>
+            </Modal>
+
             <div className="RangeItem__heading">
                 <h1>
                     <span className={'fas fa-arrow-left'} onClick={history.goBack} />
@@ -162,10 +200,10 @@ export const RangeItem = (props) => {
                 <p className={'input-label'}>
                     Шаблон настройки файла
                 </p>
-                <Select defaultValue="lucy">
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="Yiminghe">yiminghe</Option>
+                <Select defaultValue="cars">
+                    <Option value="cars">Cars</Option>
+                    <Option value="shops">Shops</Option>
+                    <Option value="items">Items</Option>
                 </Select>
             </div>
 
@@ -248,59 +286,101 @@ export const RangeItem = (props) => {
                     onRow={record => onCLickRow(record)}
                     // @ts-ignore
                     rowClassName={record => setRowClassName(record)}
+                    pagination={false}
                 />
                 <div className="RangeItem__pool_static">
                     {Object.keys(rowId).length !== 0 ?
-                        <p>
-                            Выбрана строка
-                            <span> №{
-                                //@ts-ignore
-                                rowId.number
-                            }</span>
-                        </p>
+                        <>
+                            <p>
+                                Выбрана строка
+                                <span> №{
+                                    //@ts-ignore
+                                    rowId.number
+                                }</span>
+                            </p>
+                            <Button type={'primary'} disabled>Сбросить строку</Button>
+                        </>
                         : null
                     }
-                    <Button type={'primary'} disabled>Сбросить строку</Button>
                 </div>
             </div>
 
-            <div className="RangeItem__columns">
-                <div className="RangeItem__columns_heading">
-                    <h1>Cоответствие столбцов</h1>
-                    <p>Установите соответствие заголовков столбцов базы данных и файла</p>
-                </div>
-                <div className="RangeItem__columns_content">
-                    {defaultColumns.map((item, index) => {
-                        return (
-                            <RangeItemRow
-                                //@ts-ignore
-                                index={index}
-                                rowId={rowId}
-                                item={item}
-                                onColumnHandler={columnHandler}
-                            />
-                        )
-                    })}
-                </div>
-            </div>
-
-            <div className="RangeItem__correct">
-                {pool.length !== 0 ?
-                    <Table dataSource={pool} columns={column} />
-                    : null
-                }
-            </div>
-
-            <div className="RangeItem__check">
-                <Checkbox>Подтверждаю, что проверил правильность соответствия столбцов</Checkbox>
-                <div className="RangeItem__check_buttons">
-                    <div className="RangeItem__check_buttons-first">
-                        <Button type={'primary'}>Применить настройки файла</Button>
-                        <Button className={'ant-btn-secondary'}>Сохранить шаблон cоответствия столбцов</Button>
+            {Object.keys(rowId).length !== 0 ?
+                <div className="RangeItem__columns">
+                    <div className="RangeItem__columns_heading">
+                        <h1>Cоответствие столбцов</h1>
+                        <p>Установите соответствие заголовков столбцов базы данных и файла</p>
                     </div>
-                    <Button type={'primary'} disabled>Сбросить настройки</Button>
+                    <div className="RangeItem__columns_content">
+                        {defaultColumns.map((item, index) => {
+                            return (
+                                <RangeItemRow
+                                    //@ts-ignore
+                                    index={index}
+                                    rowId={rowId}
+                                    item={item}
+                                    onColumnHandler={columnHandler}
+                                />
+                            )
+                        })}
+                    </div>
                 </div>
-            </div>
+                : null
+            }
+
+            {pool.length !== 0 ?
+                <div className="RangeItem__correct">
+                    <div className="RangeItem__correct_is">
+                        <img src={correct} alt={correct}/>
+                        <p>Проверка</p>
+                    </div>
+                    <div className="RangeItem__correct_heading">
+                        <Row justify="space-between">
+                            <Col xs={24} sm={24} md={10} lg={10} xl={10}>
+                                <p>Проверьте правильность расстановки столбцов</p>
+                            </Col>
+                            <Col xs={24} sm={24} md={10} lg={10} xl={10}>
+                                <Input placeholder="Поиск" prefix={ <img src={search} alt={search} /> } />
+                            </Col>
+                        </Row>
+                    </div>
+                    <Table
+                        dataSource={pool}
+                        columns={column}
+                        pagination={{
+                            //@ts-ignore
+                            position: ["bottomLeft"],
+                            defaultPageSize: 5,
+                            showSizeChanger: true,
+                            pageSizeOptions: ['5', '10', '20', '50']
+                        }}
+                    />
+                    <p>
+                        Всего позиций {pool.length}
+                    </p>
+                </div>
+                : null
+            }
+
+            {pool.length !== 0 ?
+                <div className="RangeItem__check">
+                    <Checkbox>Подтверждаю, что проверил правильность соответствия столбцов</Checkbox>
+                    <div className="RangeItem__check_buttons">
+                        <div className="RangeItem__check_buttons-first">
+                            <Button type={'primary'}>Применить настройки файла</Button>
+                            <Button
+                                className={'ant-btn-secondary'}
+                                //@ts-ignore
+                                onClick={showModal}
+                            >
+                                Сохранить шаблон cоответствия столбцов
+                            </Button>
+                        </div>
+                        <Button type={'primary'} disabled>Сбросить настройки</Button>
+                    </div>
+                </div>
+                : null
+            }
         </div>
     )
 };

@@ -108,6 +108,14 @@ button.table-btn, button[disabled].table-btn  {
   @include secondaryButton;
 }
 
+.btn-grey-light {
+  @include greyLightButton;
+}
+
+.btn-blue-light {
+  @include blueLightButton;
+}
+
 .ant-btn[disabled] {
   @include buttonDisabled;
 }
@@ -178,6 +186,56 @@ button.table-btn, button[disabled].table-btn  {
 
     a {
       color: $textBlue !important;
+    }
+  }
+}
+
+.ant-modal {
+  width: fit-content !important;
+
+  &-content {
+    padding: 1rem 2.5rem;
+  }
+
+  &-body {
+    padding: 20px 0 !important;
+
+    .modal-content {
+      h1 {
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      p {
+        margin-bottom: 20px;
+      }
+    }
+
+    .modal-moq {
+      margin-bottom: 20px;
+
+      .ant-input {
+        padding: 0.5rem 1rem !important;
+        border-radius: 5px !important;
+      }
+    }
+
+    button {
+      width: 100%;
+    }
+  }
+
+  &-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0 10px 0 !important;
+
+    button {
+      padding: 0.5rem 0.75rem !important;
     }
   }
 }
