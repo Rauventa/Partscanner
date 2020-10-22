@@ -3,21 +3,33 @@ import {Col, Input, Row, Select} from "antd";
 
 export const RangeItemRow = (props: any) => {
 
+    // useEffect(() => {
+    //
+    //     const selectData = Object.values(props.rowId) as string[];
+    //
+    //     setSelectValue(selectData[props.index + 1])
+    //
+    // }, [props.rowId, props.index]);
+
+    const [selectValue, setSelectValue] = useState('Не выбрано');
+
     useEffect(() => {
-
-        const selectData = Object.values(props.rowId) as string[];
-
-        setSelectValue(selectData[props.index + 1])
-
-    }, [props.rowId, props.index]);
-
-    const [selectValue, setSelectValue] = useState('');
+        if(props.rowId === props.checkRow) {
+            setSelectValue('Не выбрано')
+        }
+    }, [props.rowId, props.checkRow]);
 
     const { Option } = Select;
 
     const columnHandler = (value: any) => {
         //@ts-ignore
-        setSelectValue(value);
+        setSelectValue(props.rowId[value]);
+
+        // const newSelect = {...options};
+        //
+        // delete newSelect[value];
+
+        // setOptions(newSelect)
         props.onColumnHandler(value, props.item.name, props.index, props.rowId);
     };
 
@@ -40,7 +52,6 @@ export const RangeItemRow = (props: any) => {
                     <Select
                         value={selectValue}
                         onChange={(value) => columnHandler(value)}
-                        allowClear
                     >
                         {Object.entries(props.rowId).map(item =>
                             item[0] !== 'number' ?

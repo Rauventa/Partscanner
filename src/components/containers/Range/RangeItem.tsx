@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useHistory, useLocation} from 'react-router-dom'
 import {Input, Select, Row, Col, Radio, Table, Button, Checkbox, Modal} from "antd";
 
@@ -15,7 +15,24 @@ export const RangeItem = (props) => {
     const [rowId, setRowId] = useState({});
     const [pool, setPool] = useState([]);
     const [column, setColumn] = useState([]);
+    const [tableColumn, setTableColumn] = useState([]);
     const [modal, setModal] = useState(false);
+    const [stroke, setStroke] = useState(false);
+    const [selectRow, setSelectRow] = useState({});
+    const [changeRow, setChangeRow] = useState({});
+
+    //radio
+
+    const [separator, setSeparator] = useState(1);
+    const [encoding, setEncoding] = useState(1);
+    const [fraction, setFraction] = useState(1);
+
+    useEffect(() => {
+        if(changeRow === selectRow) return;
+
+        setChangeRow(selectRow)
+    },[changeRow, selectRow]);
+
 
     const history = useHistory();
     const location = useLocation();
@@ -74,35 +91,51 @@ export const RangeItem = (props) => {
 
     const { Option } = Select;
 
+    const reWriteSelect = () => {
+      setSelectRow(rowId);
+        setTableColumn([])
+    };
+
     const columnHandler = (value: any, name: any, index: any, row: any) => {
+
+        const newRow = {...row};
+
+        delete newRow[value];
+
+        setSelectRow(newRow);
 
         const newColumn = [...column];
 
-        const title = newColumn.filter(item =>
+        const hello = newColumn.filter(item =>
             //@ts-ignore
-            item.title === row[item.dataIndex]
+            item.title === name
         );
 
-        newColumn.splice(index + 1, 1,
-            //@ts-ignore
-            {
-                //@ts-ignore
-                title: title[index].title,
-                //@ts-ignore
-                dataIndex: value,
-                //@ts-ignore
-                key: value
-            }
-        );
+        hello.splice(0 ,1 ,
+                {
+                    //@ts-ignore
+                    title: name,
+                    //@ts-ignore
+                    dataIndex: value,
+                    //@ts-ignore
+                    key: value
+                }
+            );
 
-        //@ts-ignore
-        setColumn(newColumn)
+        const tableColumns = [...tableColumn];
+
+        tableColumns.push(hello[0]);
+
+        setTableColumn(tableColumns)
+
     };
 
     const onCLickRow = (record: any) => {
         return {
             onClick: () => {
                 setRowId(record);
+                setSelectRow(record);
+                setChangeRow(record);
 
                 const newPool = moqHeads.filter(item =>
                     item.number !== record.number
@@ -225,17 +258,17 @@ export const RangeItem = (props) => {
 
                 {item.format === '.csv' ?
                     <div className="RangeItem__type_select">
-                        <Row>
-                            <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                        <Row justify={'space-between'}>
+                            <Col xs={24} sm={24} md={8} lg={5} xl={5}>
                                 <div className="select-list">
                                     <p className={'input-label'}>Тип разделителя</p>
                                     <div className="select-list__container">
-                                        <Radio.Group value={1}>
+                                        <Radio.Group value={separator} onChange={e => setSeparator(e.target.value)}>
                                             <Radio value={1}>;</Radio>
                                             <Radio value={2}>табуляция</Radio>
                                             <Radio value={3}>пробел</Radio>
                                             <Radio value={4}>,</Radio>
-                                            <Radio value={5}>
+                                            <Radio value={5} className={'custom-radio'}>
                                                 другое
                                                 <Input placeholder="$" defaultValue={'$'} />
                                             </Radio>
@@ -243,11 +276,11 @@ export const RangeItem = (props) => {
                                     </div>
                                 </div>
                             </Col>
-                            <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                            <Col xs={24} sm={24} md={8} lg={5} xl={5}>
                                 <div className="select-list">
                                     <p className={'input-label'}>Кодировка</p>
                                     <div className="select-list__container">
-                                        <Radio.Group value={1}>
+                                        <Radio.Group value={encoding} onChange={e => setEncoding(e.target.value)}>
                                             <Radio value={1}>UTF-8</Radio>
                                             <Radio value={2}>UTF-16</Radio>
                                             <Radio value={3}>Windows-1251</Radio>
@@ -256,11 +289,11 @@ export const RangeItem = (props) => {
                                     </div>
                                 </div>
                             </Col>
-                            <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                            <Col xs={24} sm={24} md={8} lg={5} xl={5}>
                                 <div className="select-list">
                                     <p className={'input-label'}>Разделитель целой и дробной части</p>
                                     <div className="select-list__container">
-                                        <Radio.Group value={1}>
+                                        <Radio.Group value={fraction} onChange={e => setFraction(e.target.value)}>
                                             <Radio value={1}>точка</Radio>
                                             <Radio value={2}>запятая</Radio>
                                         </Radio.Group>
@@ -276,7 +309,11 @@ export const RangeItem = (props) => {
             <div className="RangeItem__pool">
                 <div className="RangeItem__pool_heading">
                     <h1>Строка с названиями столбцов</h1>
-                    <p>Установите строку с названиями столбцов (шапку таблицы)</p>
+                    <Checkbox onChange={e => setStroke(e.target.checked)}>Нет строки с заголовками</Checkbox>
+                    {stroke ?
+                        <p>Выберите первую строку с данными</p> :
+                        <p>Выберите строку с заголовками столбцов (шапку таблицы)</p>
+                    }
                 </div>
                 <Table
                     dataSource={moqHeads}
@@ -312,17 +349,40 @@ export const RangeItem = (props) => {
                         <p>Установите соответствие заголовков столбцов базы данных и файла</p>
                     </div>
                     <div className="RangeItem__columns_content">
+                        <Row justify="center">
+                            <Col xs={8} sm={8} md={8} lg={8} xl={8}>
+                                <h2>Заголовок столбца в базе данных</h2>
+                            </Col>
+                            <Col xs={1} sm={1} md={1} lg={1} xl={1}/>
+                            <Col xs={8} sm={8} md={8} lg={8} xl={8}>
+                                <h2>Заголовок столбца в файле</h2>
+                            </Col>
+                        </Row>
                         {defaultColumns.map((item, index) => {
                             return (
                                 <RangeItemRow
                                     //@ts-ignore
                                     index={index}
-                                    rowId={rowId}
+                                    rowId={selectRow}
+                                    checkRow={rowId}
                                     item={item}
                                     onColumnHandler={columnHandler}
                                 />
                             )
                         })}
+                        <Row justify="center">
+                            <Col xs={8} sm={8} md={8} lg={8} xl={8}/>
+                            <Col xs={1} sm={1} md={1} lg={1} xl={1}/>
+                            <Col xs={8} sm={8} md={8} lg={8} xl={8} className={'button-col'}>
+                                <Button
+                                    type={'primary'}
+                                    //@ts-ignore
+                                    onClick={reWriteSelect}
+                                >
+                                    Сбросить столбцы
+                                </Button>
+                            </Col>
+                        </Row>
                     </div>
                 </div>
                 : null
@@ -346,7 +406,7 @@ export const RangeItem = (props) => {
                     </div>
                     <Table
                         dataSource={pool}
-                        columns={column}
+                        columns={tableColumn}
                         pagination={{
                             //@ts-ignore
                             position: ["bottomLeft"],
