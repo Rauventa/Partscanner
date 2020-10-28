@@ -195,6 +195,7 @@ button.table-btn, button[disabled].table-btn  {
 
   &-content {
     padding: 1rem 2.5rem;
+    background-color: #F9FAFB !important;
   }
 
   &-body {
@@ -210,6 +211,7 @@ button.table-btn, button[disabled].table-btn  {
 
       p {
         margin-bottom: 20px;
+        line-height: 150%;
       }
     }
 
@@ -219,6 +221,7 @@ button.table-btn, button[disabled].table-btn  {
       .ant-input {
         padding: 0.5rem 1rem !important;
         border-radius: 5px !important;
+        background-color: #F4F4F4;
       }
     }
 

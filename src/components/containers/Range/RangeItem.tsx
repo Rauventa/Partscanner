@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useHistory, useLocation} from 'react-router-dom'
 import {Input, Select, Row, Col, Radio, Table, Button, Checkbox, Modal} from "antd";
+import _ from 'underscore';
 
 import excel from '../../../assets/images/Table/excel.png'
 import csv from '../../../assets/images/Table/csv.png'
@@ -20,12 +21,23 @@ export const RangeItem = (props) => {
     const [stroke, setStroke] = useState(false);
     const [selectRow, setSelectRow] = useState({});
     const [changeRow, setChangeRow] = useState({});
+    const [test, setTest] = useState([]);
 
     //radio
 
     const [separator, setSeparator] = useState(1);
     const [encoding, setEncoding] = useState(1);
     const [fraction, setFraction] = useState(1);
+
+    const resetAll = () => {
+        setRowId({});
+        setPool([]);
+        setColumn([]);
+        setTableColumn([]);
+        setSelectRow({});
+        setChangeRow({});
+        setTest([]);
+    };
 
     useEffect(() => {
         if(changeRow === selectRow) return;
@@ -93,22 +105,86 @@ export const RangeItem = (props) => {
 
     const reWriteSelect = () => {
       setSelectRow(rowId);
+      setTest([]);
         setTableColumn([])
     };
 
     const columnHandler = (value: any, name: any, index: any, row: any) => {
 
-        const newRow = {...row};
+        const newTest = [...test];
 
-        delete newRow[value];
+        newTest.push({
+            //@ts-ignore
+            name,
+            //@ts-ignore
+            value
+        });
 
-        setSelectRow(newRow);
+        newTest.reverse();
+
+        // @ts-ignore
+        const sorted = _.uniq(newTest, function(x){
+            //@ts-ignore
+            return x.name;
+        });
+
+        if (sorted.length !== newTest.length) {
+            //@ts-ignore
+            const newSorted = sorted.filter(item => (item.name !== name) || (item.value === value));
+
+            setTest(newSorted);
+
+            const newRow = {...rowId};
+
+            const array = [];
+
+            for (const key in newRow) {
+                array.push({
+                    //@ts-ignore
+                    name: newRow[key],
+                    value: key
+                })
+            }
+
+            //@ts-ignore
+            const result = array.filter(x => !newSorted.some(y => x.value === y.value));
+
+            //@ts-ignore
+            const res = result.reduce((acc, item) => ({...acc, [item.value]:item.name}), {});
+
+            setSelectRow(res)
+        } else {
+            setTest(sorted);
+
+            const newRow = {...rowId};
+
+            const array = [];
+
+            for (const key in newRow) {
+                array.push({
+                    //@ts-ignore
+                    name: newRow[key],
+                    value: key
+                })
+            }
+
+            //@ts-ignore
+            const result = array.filter(x => !sorted.some(y => x.value === y.value));
+
+            //@ts-ignore
+            const res = result.reduce((acc, item) => ({...acc, [item.value]:item.name}), {});
+
+            setSelectRow(res)
+        }
 
         const newColumn = [...column];
 
+        //@ts-ignore
+        const itemValue = rowId[value];
+
         const hello = newColumn.filter(item =>
             //@ts-ignore
-            item.title === name
+            item.title === itemValue
         );
 
         hello.splice(0 ,1 ,
@@ -124,9 +200,16 @@ export const RangeItem = (props) => {
 
         const tableColumns = [...tableColumn];
 
-        tableColumns.push(hello[0]);
+        // tableColumns.push(hello[0]);
 
-        setTableColumn(tableColumns)
+        tableColumns.splice(index, 0, hello[0]);
+
+        const reColumns = _.uniq(tableColumns, function(x){
+            //@ts-ignore
+            return x.title;
+        });
+
+        setTableColumn(reColumns)
 
     };
 
@@ -137,25 +220,45 @@ export const RangeItem = (props) => {
                 setSelectRow(record);
                 setChangeRow(record);
 
-                const newPool = moqHeads.filter(item =>
-                    item.number !== record.number
-                );
+                if (stroke) {
+                    const newPool = [...moqHeads];
 
-                const poolData = newPool.map((item, index) => {
-                    return {
-                        key: index,
-                        id: index + 1,
-                        a: item.a,
-                        b: item.b,
-                        c: item.c,
-                        d: item.d,
-                        e: item.e,
-                        f: item.f,
-                    }
-                });
+                    const poolData = newPool.map((item, index) => {
+                        return {
+                            key: index,
+                            id: index + 1,
+                            a: item.a,
+                            b: item.b,
+                            c: item.c,
+                            d: item.d,
+                            e: item.e,
+                            f: item.f,
+                        }
+                    });
 
-                //@ts-ignore
-                setPool(poolData);
+                    //@ts-ignore
+                    setPool(poolData);
+                } else {
+                    const newPool = moqHeads.filter(item =>
+                        item.number !== record.number
+                    );
+
+                    const poolData = newPool.map((item, index) => {
+                        return {
+                            key: index,
+                            id: index + 1,
+                            a: item.a,
+                            b: item.b,
+                            c: item.c,
+                            d: item.d,
+                            e: item.e,
+                            f: item.f,
+                        }
+                    });
+
+                    //@ts-ignore
+                    setPool(poolData);
+                }
 
                 const newColumn = Object.entries(record).map(item => {
                     return {
@@ -261,7 +364,7 @@ export const RangeItem = (props) => {
                         <Row justify={'space-between'}>
                             <Col xs={24} sm={24} md={8} lg={5} xl={5}>
                                 <div className="select-list">
-                                    <p className={'input-label'}>Тип разделителя</p>
+                                    <p className={'input-label'}>Разделитель данных</p>
                                     <div className="select-list__container">
                                         <Radio.Group value={separator} onChange={e => setSeparator(e.target.value)}>
                                             <Radio value={1}>;</Radio>
@@ -308,7 +411,7 @@ export const RangeItem = (props) => {
 
             <div className="RangeItem__pool">
                 <div className="RangeItem__pool_heading">
-                    <h1>Строка с названиями столбцов</h1>
+                    <h1>Строка с заголовками столбцов</h1>
                     <Checkbox onChange={e => setStroke(e.target.checked)}>Нет строки с заголовками</Checkbox>
                     {stroke ?
                         <p>Выберите первую строку с данными</p> :
@@ -335,7 +438,7 @@ export const RangeItem = (props) => {
                                     rowId.number
                                 }</span>
                             </p>
-                            <Button type={'primary'} disabled>Сбросить строку</Button>
+                            {/*<Button type={'primary'} disabled>Сбросить строку</Button>*/}
                         </>
                         : null
                     }
@@ -375,7 +478,7 @@ export const RangeItem = (props) => {
                             <Col xs={1} sm={1} md={1} lg={1} xl={1}/>
                             <Col xs={8} sm={8} md={8} lg={8} xl={8} className={'button-col'}>
                                 <Button
-                                    type={'primary'}
+                                    className={'btn-grey-light'}
                                     //@ts-ignore
                                     onClick={reWriteSelect}
                                 >
@@ -436,7 +539,7 @@ export const RangeItem = (props) => {
                                 Сохранить шаблон cоответствия столбцов
                             </Button>
                         </div>
-                        <Button type={'primary'} disabled>Сбросить настройки</Button>
+                        <Button className={'btn-grey-light'} onClick={resetAll}>Сбросить настройки</Button>
                     </div>
                 </div>
                 : null

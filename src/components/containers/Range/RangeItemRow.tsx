@@ -50,6 +50,7 @@ export const RangeItemRow = (props: any) => {
                 </Col>
                 <Col xs={8} sm={8} md={8} lg={8} xl={8}>
                     <Select
+                        allowClear
                         value={selectValue}
                         onChange={(value) => columnHandler(value)}
                     >
