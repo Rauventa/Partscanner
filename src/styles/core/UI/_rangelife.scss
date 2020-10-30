@@ -1,0 +1,97 @@
+.RangeLife {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &__content {
+    background: #FBFBFB;
+    border: 1px solid #CFCFCF;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 1.5rem;
+
+    &_checker {
+      display: flex;
+
+      p {
+        margin-top: 0.15rem;
+        margin-bottom: 0;
+        margin-left: 1rem;
+      }
+    }
+
+    &_data {
+
+      .ant-radio-group {
+        padding: 0.75rem 0;
+      }
+
+      &-time {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        button {
+          background: #9F9F9F;
+          border-radius: 5px;
+          width: 32px;
+          height: 22px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: none;
+          color: $white;
+          font-size: 18px;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        .ant-input-number-handler-wrap {
+          display: none;
+        }
+
+        .ant-input-number {
+          margin: 0 0.5rem;
+        }
+
+        .ant-select {
+          margin-left: 1rem;
+        }
+      }
+
+      &-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-top: 1rem;
+
+        &--date {
+          p {
+            margin-bottom: 1.5rem;
+          }
+        }
+
+        &--time {
+          p {
+            color: $bgGrey;
+            margin-bottom: 0;
+          }
+
+          h2 {
+            color: $textLightGrey;
+            margin-bottom: 0;
+
+            span {
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  }
+}

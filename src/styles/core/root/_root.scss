@@ -20,6 +20,11 @@ button {
 
 button.table-btn, button[disabled].table-btn  {
   padding: 0.35rem 1rem !important;
+
+  span {
+    font-size: 16px;
+    line-height: 18px;
+  }
 }
 
 .input-label {

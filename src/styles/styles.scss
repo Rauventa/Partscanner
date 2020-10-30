@@ -6,4 +6,6 @@
 
 @import './core/root/layout';
 @import './core/root/root';
-@import './blocks/range';
+@import 'blocks/Range/range';
+
+@import 'core/UI/rangelife';

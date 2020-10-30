@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Select, Switch, Radio, InputNumber, Upload, message, Button, Table, Row, Col, Input} from 'antd';
+import {Select, Upload, message, Button, Table, Row, Col, Input} from 'antd';
 import {useHistory} from 'react-router-dom';
 import {moqArray} from "../../../moq/moq";
 import cloud from '../../../assets/images/cloud.svg';
@@ -9,14 +9,12 @@ import filter from '../../../assets/images/Table/fields/filter.svg';
 
 import excel from '../../../assets/images/Table/excel.png'
 import csv from '../../../assets/images/Table/csv.png'
+import { RangeLife } from '../../UI/RangeLife';
 // import { NavLink } from 'react-router-dom';
 
 export const Range = () => {
 
     const [title, setTitle] = useState('Europarts');
-    const [valid, setValid] = useState(false);
-    const [radio, setRadio] = useState(1);
-    const [counter, setCounter] = useState(1);
     const [selectedRows, setSelectedRows] = useState([]);
     const [summary, setSummary] = useState([]);
 
@@ -114,7 +112,7 @@ export const Range = () => {
             //@ts-ignore
             render: (value, record) => (
                 record.settings ?
-                <Button type="primary" className={'table-btn'} disabled>Настроить</Button> :
+                <Button className={'btn-grey-light table-btn'}>Настроить</Button> :
                     <Button type="primary" className={'table-btn'} onClick={() => redirectHandler(record)}>Настроить</Button>
             )
         },
@@ -161,6 +159,10 @@ export const Range = () => {
         history.push(`/${item.key}`, {item: item})
     };
 
+    const editRange = () => {
+        history.push(`/${title}/add`, {title: title})
+    };
+
     return (
         <div className="Range">
 
@@ -196,6 +198,7 @@ export const Range = () => {
                                     {item.supplier}
                                     <span
                                         className="far fa-edit"
+                                        onClick={editRange}
                                     />
                                 </h1>
                             </div>
@@ -269,79 +272,7 @@ export const Range = () => {
                                         </div>
                                     </Col>
                                     <Col xs={2} sm={4} md={12} lg={12} xl={12}>
-                                        <div className="Range__stock_content-valid">
-                                            <p className={'input-label'}>
-                                                Срок годности ассортимента
-                                            </p>
-
-                                            <div className="validContent">
-                                                <div className="validContent__checker">
-                                                    <Switch defaultChecked={valid} onChange={() => setValid(!valid)} />
-                                                    <p>Срок годности ассортимента</p>
-                                                </div>
-
-                                                {valid ?
-                                                    <div className={'validContent__content'}>
-                                                        <Radio.Group onChange={event => setRadio(event.target.value)} value={radio}>
-                                                            <Radio value={1}>день</Radio>
-                                                            <Radio value={2}>неделя</Radio>
-                                                            <Radio value={3}>месяц</Radio>
-                                                        </Radio.Group>
-                                                        <div className={'validContent__content_time'}>
-                                                            {counter > 1 ?
-                                                                <>
-                                                                    <button onClick={() => setCounter(counter - 1)}>-</button>
-                                                                    <InputNumber
-                                                                        value={counter}
-                                                                        //@ts-ignore
-                                                                        onChange={value => setCounter(value)}
-                                                                    />
-                                                                    <button onClick={() => setCounter(counter + 1)}>+</button>
-                                                                </> :
-                                                                <>
-                                                                    <button disabled>-</button>
-                                                                    <InputNumber
-                                                                        value={counter}
-                                                                        //@ts-ignore
-                                                                        onChange={value => setCounter(value)}
-                                                                    />
-                                                                    <button onClick={() => setCounter(counter + 1)}>+</button>
-                                                                </>
-                                                            }
-                                                            <Select defaultValue="lucy">
-                                                                <Option value="jack">Jack</Option>
-                                                                <Option value="lucy">Lucy</Option>
-                                                                <Option value="Yiminghe">yiminghe</Option>
-                                                            </Select>
-
-                                                            <Select defaultValue="lucy">
-                                                                <Option value="jack">Jack</Option>
-                                                                <Option value="lucy">Lucy</Option>
-                                                                <Option value="Yiminghe">yiminghe</Option>
-                                                            </Select>
-                                                        </div>
-                                                        <div className={'validContent__content_info'}>
-                                                            <div className="validContent__content_info-date">
-                                                                <p className={'small-input-label'}>
-                                                                    Будет повторяться каждую неделю в следующие дни:
-                                                                    <br/>
-                                                                    пн, ср, пт, вс
-                                                                </p>
-                                                            </div>
-                                                            <div className="validContent__content_info-time">
-                                                                <p>до 11 мая 2020</p>
-                                                                <h2>
-                                                                    <span>1</span> д
-                                                                    <span> 16</span> ч
-                                                                    <span> 36</span> м
-                                                                </h2>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    : null
-                                                }
-                                            </div>
-                                        </div>
+                                        <RangeLife />
                                     </Col>
                                 </Row>
                             </div>

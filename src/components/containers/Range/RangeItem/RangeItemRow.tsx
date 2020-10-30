@@ -3,19 +3,11 @@ import {Col, Input, Row, Select} from "antd";
 
 export const RangeItemRow = (props: any) => {
 
-    // useEffect(() => {
-    //
-    //     const selectData = Object.values(props.rowId) as string[];
-    //
-    //     setSelectValue(selectData[props.index + 1])
-    //
-    // }, [props.rowId, props.index]);
-
-    const [selectValue, setSelectValue] = useState('Не выбрано');
+    const [selectValue, setSelectValue] = useState('');
 
     useEffect(() => {
         if(props.rowId === props.checkRow) {
-            setSelectValue('Не выбрано')
+            setSelectValue('')
         }
     }, [props.rowId, props.checkRow]);
 
@@ -24,13 +16,12 @@ export const RangeItemRow = (props: any) => {
     const columnHandler = (value: any) => {
         //@ts-ignore
         setSelectValue(props.rowId[value]);
-
-        // const newSelect = {...options};
-        //
-        // delete newSelect[value];
-
-        // setOptions(newSelect)
         props.onColumnHandler(value, props.item.name, props.index, props.rowId);
+    };
+
+    const deleteHandler = () => {
+        setSelectValue('');
+        props.onColumnHandler('', props.item.name, props.index, props.rowId);
     };
 
     return (
@@ -50,8 +41,7 @@ export const RangeItemRow = (props: any) => {
                 </Col>
                 <Col xs={8} sm={8} md={8} lg={8} xl={8}>
                     <Select
-                        allowClear
-                        value={selectValue}
+                        value={selectValue === '' ? 'Не выбрано' : selectValue}
                         onChange={(value) => columnHandler(value)}
                     >
                         {Object.entries(props.rowId).map(item =>
@@ -71,6 +61,11 @@ export const RangeItemRow = (props: any) => {
                                 : null
                         )}
                     </Select>
+                </Col>
+                <Col xs={1} sm={1} md={1} lg={1} xl={1}>
+                    <div className="RangeItem__columns_content-icon">
+                        <i className={'fas fa-times'} onClick={deleteHandler}/>
+                    </div>
                 </Col>
             </Row>
         </>

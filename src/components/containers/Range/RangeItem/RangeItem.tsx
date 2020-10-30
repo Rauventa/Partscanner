@@ -3,12 +3,12 @@ import {useHistory, useLocation} from 'react-router-dom'
 import {Input, Select, Row, Col, Radio, Table, Button, Checkbox, Modal} from "antd";
 import _ from 'underscore';
 
-import excel from '../../../assets/images/Table/excel.png'
-import csv from '../../../assets/images/Table/csv.png'
-import { moqHeads, defaultColumns } from '../../../moq/moq';
+import excel from '../../../../assets/images/Table/excel.png'
+import csv from '../../../../assets/images/Table/csv.png'
+import { moqHeads, defaultColumns } from '../../../../moq/moq';
 import { RangeItemRow } from './RangeItemRow';
-import search from "../../../assets/images/Table/fields/search.svg";
-import correct from "../../../assets/images/correct.svg";
+import search from '../../../../assets/images/Table/fields/search.svg';
+import correct from "../../../../assets/images/correct.svg";
 
 // @ts-ignore
 export const RangeItem = (props) => {
@@ -336,7 +336,8 @@ export const RangeItem = (props) => {
                 <p className={'input-label'}>
                     Шаблон настройки файла
                 </p>
-                <Select defaultValue="cars">
+                <Select defaultValue="none">
+                    <Option value="none">Без шаблона</Option>
                     <Option value="cars">Cars</Option>
                     <Option value="shops">Shops</Option>
                     <Option value="items">Items</Option>
@@ -366,7 +367,13 @@ export const RangeItem = (props) => {
                                 <div className="select-list">
                                     <p className={'input-label'}>Разделитель данных</p>
                                     <div className="select-list__container">
-                                        <Radio.Group value={separator} onChange={e => setSeparator(e.target.value)}>
+                                        <Radio.Group
+                                            value={separator}
+                                            onChange={
+                                                //@ts-ignore
+                                                e => setSeparator(e.target.value)
+                                            }
+                                        >
                                             <Radio value={1}>;</Radio>
                                             <Radio value={2}>табуляция</Radio>
                                             <Radio value={3}>пробел</Radio>
@@ -383,7 +390,13 @@ export const RangeItem = (props) => {
                                 <div className="select-list">
                                     <p className={'input-label'}>Кодировка</p>
                                     <div className="select-list__container">
-                                        <Radio.Group value={encoding} onChange={e => setEncoding(e.target.value)}>
+                                        <Radio.Group
+                                            value={encoding}
+                                            onChange={
+                                                //@ts-ignore
+                                                e => setEncoding(e.target.value)
+                                            }
+                                        >
                                             <Radio value={1}>UTF-8</Radio>
                                             <Radio value={2}>UTF-16</Radio>
                                             <Radio value={3}>Windows-1251</Radio>
@@ -396,7 +409,13 @@ export const RangeItem = (props) => {
                                 <div className="select-list">
                                     <p className={'input-label'}>Разделитель целой и дробной части</p>
                                     <div className="select-list__container">
-                                        <Radio.Group value={fraction} onChange={e => setFraction(e.target.value)}>
+                                        <Radio.Group
+                                            value={fraction}
+                                            onChange={
+                                                //@ts-ignore
+                                                e => setFraction(e.target.value)
+                                            }
+                                        >
                                             <Radio value={1}>точка</Radio>
                                             <Radio value={2}>запятая</Radio>
                                         </Radio.Group>
@@ -412,7 +431,13 @@ export const RangeItem = (props) => {
             <div className="RangeItem__pool">
                 <div className="RangeItem__pool_heading">
                     <h1>Строка с заголовками столбцов</h1>
-                    <Checkbox onChange={e => setStroke(e.target.checked)}>Нет строки с заголовками</Checkbox>
+                    <Checkbox
+                        onChange={
+                            //@ts-ignore
+                            e => setStroke(e.target.checked)
+                        }
+                    >
+                        Нет строки с заголовками</Checkbox>
                     {stroke ?
                         <p>Выберите первую строку с данными</p> :
                         <p>Выберите строку с заголовками столбцов (шапку таблицы)</p>
@@ -460,6 +485,7 @@ export const RangeItem = (props) => {
                             <Col xs={8} sm={8} md={8} lg={8} xl={8}>
                                 <h2>Заголовок столбца в файле</h2>
                             </Col>
+                            <Col xs={1} sm={1} md={1} lg={1} xl={1}/>
                         </Row>
                         {defaultColumns.map((item, index) => {
                             return (
@@ -485,6 +511,7 @@ export const RangeItem = (props) => {
                                     Сбросить столбцы
                                 </Button>
                             </Col>
+                            <Col xs={1} sm={1} md={1} lg={1} xl={1}/>
                         </Row>
                     </div>
                 </div>
