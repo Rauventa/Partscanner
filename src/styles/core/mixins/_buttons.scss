@@ -44,6 +44,11 @@
   height: auto !important;
   color: $textGrey !important;
 
+  span {
+    font-size: 16px;
+    line-height: 18px;
+  }
+
   &:hover {
     background-color: $textGrey !important;
     color: $white !important;
@@ -57,6 +62,11 @@
   padding: 10px 30px !important;
   height: auto !important;
   color: $textBlue !important;
+
+  span {
+    font-size: 16px;
+    line-height: 18px;
+  }
 
   &:hover {
     background-color: $textBlue !important;

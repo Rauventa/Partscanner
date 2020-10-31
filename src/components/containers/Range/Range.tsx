@@ -159,7 +159,7 @@ export const Range = () => {
         history.push(`/${item.key}`, {item: item})
     };
 
-    const editRange = () => {
+    const addRange = () => {
         history.push(`/${title}/add`, {title: title})
     };
 
@@ -181,13 +181,21 @@ export const Range = () => {
                                 Поставщик
                             </p>
 
-                            <Select defaultValue={item.supplier} onChange={value => setTitle(value)}>
-                                {moqArray.map(item => {
-                                    return (
-                                        <Option value={item.supplier}>{item.supplier}</Option>
-                                    )
-                                })}
-                            </Select>
+                            <div className="Range__supplier_data">
+                                <Select defaultValue={item.supplier} onChange={value => setTitle(value)}>
+                                    {moqArray.map(item => {
+                                        return (
+                                            <Option value={item.supplier}>{item.supplier}</Option>
+                                        )
+                                    })}
+                                </Select>
+
+                                <Button className={'ant-btn-secondary'} onClick={addRange}>
+                                    <i className="fas fa-plus"/>
+                                    &nbsp;
+                                    Новый поставщик
+                                </Button>
+                            </div>
 
                         </div>
 
@@ -198,7 +206,7 @@ export const Range = () => {
                                     {item.supplier}
                                     <span
                                         className="far fa-edit"
-                                        onClick={editRange}
+                                        onClick={addRange}
                                     />
                                 </h1>
                             </div>

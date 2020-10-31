@@ -13,6 +13,18 @@
 
   &__supplier {
     padding: 2.5rem;
+
+    &_data {
+
+      .ant-select-selector {
+        padding: 0.35rem 1rem !important;
+      }
+
+      button {
+        margin-left: 10px;
+        padding: 10px 15px !important;
+      }
+    }
   }
 
   &__info {
@@ -634,6 +646,17 @@
         display: flex;
         justify-content: flex-end;
       }
+
+      .ant-input[disabled] {
+        &::placeholder {
+          color: $black;
+        }
+      }
+
+      .select-column {
+        color: $textGrey;
+        float: right;
+      }
     }
 
     .ant-btn {
@@ -755,6 +778,160 @@
             margin-right: 10px;
           }
         }
+      }
+    }
+  }
+}
+
+.RangeAdd {
+
+  //grid styles ---
+
+  &__row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+
+    &:first-child {
+      width: calc(60% - 10px);
+    }
+
+    &:last-child {
+      width: calc(40% - 10px);
+    }
+  }
+
+  //blocks styles ---
+
+  &__data {
+    width: 100%;
+    margin-bottom: 20px;
+
+    &_content {
+      background-color: $bgSecondary;
+      padding: 20px;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+
+      &-address, &-site {
+        margin-bottom: 20px;
+      }
+
+      &-main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &--phone {
+          width: calc(25% - 5px);
+        }
+
+        &--email {
+          width: calc(75% - 5px);
+        }
+      }
+    }
+  }
+
+  &__life {
+    width: 100%;
+
+    .RangeLife {
+      margin-left: 0;
+      margin-bottom: 20px;
+    }
+  }
+
+  &__persons {
+    width: 100%;
+
+    &_content {
+      background-color: $bgSecondary;
+      padding: 20px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+
+      .person {
+
+        &__heading {
+          margin-bottom: 10px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          p, i {
+            color: $textLightGrey;
+            margin-bottom: 0;
+          }
+        }
+
+        &__data {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 20px;
+
+          &_name {
+            width: calc(65% - 5px);
+          }
+
+          &_phone {
+            width: calc(35% - 5px);
+          }
+        }
+
+        &__email {
+          width: 100%;
+        }
+      }
+    }
+
+    &_new {
+      background-color: $bgSecondary;
+      padding: 20px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      p {
+        color: $textLightGrey;
+        margin-bottom: 0;
+      }
+
+      button {
+        padding: 15px !important;
+        width: 40px !important;
+        height: 40px !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        span, i, svg {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 40px;
+    background-color: $bgLight;
+
+    &_buttons {
+      button {
+        margin-left: 10px;
       }
     }
   }

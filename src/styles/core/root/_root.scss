@@ -184,6 +184,10 @@ button.table-btn, button[disabled].table-btn  {
   }
 }
 
+textarea.ant-input {
+  border-color: $borderGreyColor;
+}
+
 .ant-pagination-item {
 
   &-active {

@@ -41,7 +41,15 @@ export const RangeItemRow = (props: any) => {
                 </Col>
                 <Col xs={8} sm={8} md={8} lg={8} xl={8}>
                     <Select
-                        value={selectValue === '' ? 'Не выбрано' : selectValue}
+                        //@ts-ignore
+                        value={
+                            selectValue === '' ?
+                                <span>Не выбрано</span>
+                                : <>
+                                    <span>{selectValue}</span>
+                                    <span className={'select-column'}>Hello</span>
+                                </>
+                        }
                         onChange={(value) => columnHandler(value)}
                     >
                         {Object.entries(props.rowId).map(item =>
