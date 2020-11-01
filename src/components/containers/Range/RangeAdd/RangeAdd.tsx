@@ -21,8 +21,6 @@ export const RangeAdd = (props: any) => {
     const addHandler = () => {
         const newPersons = [...persons];
 
-        console.log(newPersons)
-
         //letter generator (while backend not working)
 
         const abc = "abcdefghijklmnopqrstuvwxyz";
@@ -40,19 +38,13 @@ export const RangeAdd = (props: any) => {
             email: ''
         });
 
-        console.log(newPersons)
-
         setPersons(newPersons);
     };
 
     const deleteHandler = (id: any) => {
         const newPersons = [...persons];
 
-        console.log(newPersons)
-
         const filtered = newPersons.filter(item => item.id !== id);
-
-        console.log(filtered)
 
         setPersons(filtered)
     };
@@ -195,20 +187,20 @@ export const RangeAdd = (props: any) => {
                                                 <p className={'input-label'}>
                                                     Имя
                                                 </p>
-                                                <Input placeholder="Введите имя" onChange={(e) => changeName(e.target.value, person.id, index + 1)} />
+                                                <Input placeholder="Введите имя" value={person.name} onChange={(e) => changeName(e.target.value, person.id, index)} />
                                             </div>
                                             <div className="person__data_phone">
                                                 <p className={'input-label'}>
                                                     Телефон
                                                 </p>
-                                                <Input placeholder="Введите телефон" onChange={(e) => changePhone(e.target.value, person.id, index + 1)} />
+                                                <Input placeholder="Введите телефон" value={person.phone} onChange={(e) => changePhone(e.target.value, person.id, index)} />
                                             </div>
                                         </div>
                                         <div className="person__email">
                                             <p className={'input-label'}>
                                                 E-mail
                                             </p>
-                                            <Input placeholder="Введите email" onChange={(e) => changeEmail(e.target.value, person.id, index + 1)} />
+                                            <Input placeholder="Введите email" value={person.email} onChange={(e) => changeEmail(e.target.value, person.id, index)} />
                                         </div>
                                     </div>
                                 </div>
