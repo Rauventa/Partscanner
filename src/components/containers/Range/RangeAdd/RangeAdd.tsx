@@ -14,6 +14,13 @@ export const RangeAdd = (props: any) => {
         }
     ]);
 
+    const [supplier, setSupplier] = useState('');
+    const [address, setAddress] = useState('');
+    const [site, setSite] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
+    const [comment, setComment] = useState('');
+
     const history = useHistory();
 
     const { TextArea } = Input;
@@ -112,6 +119,24 @@ export const RangeAdd = (props: any) => {
         setPersons(newPersons);
     };
 
+    const resetHandler = () => {
+        setSupplier('');
+        setAddress('');
+        setPhone('');
+        setEmail('');
+        setSite('');
+        setComment('');
+
+        setPersons([
+            {
+                id: '1',
+                name: '',
+                phone: '',
+                email: ''
+            }
+        ])
+    };
+
     return (
         <div className={'RangeAdd'}>
 
@@ -126,7 +151,7 @@ export const RangeAdd = (props: any) => {
                 <p className={'input-label'}>
                     Название поставщика
                 </p>
-                <Input placeholder="Название" defaultValue={'Europarts'} />
+                <Input placeholder="Название" value={supplier} onChange={e => setSupplier(e.target.value)} />
             </div>
 
             <div className="RangeAdd__row">
@@ -140,26 +165,26 @@ export const RangeAdd = (props: any) => {
                                 <p className={'input-label'}>
                                     Адрес
                                 </p>
-                                <Input placeholder="Введите адрес" defaultValue='г. Москва, ул. Мантулинская, вл 17, корп. 5' />
+                                <Input placeholder="Введите адрес" value={address} onChange={e => setAddress(e.target.value)} />
                             </div>
                             <div className="RangeAdd__data_content-site">
                                 <p className={'input-label'}>
                                     Сайт
                                 </p>
-                                <Input placeholder="Введите адрес сайта" defaultValue='Europarts.ru' />
+                                <Input placeholder="Введите адрес сайта" value={site} onChange={e => setSite(e.target.value)} />
                             </div>
                             <div className="RangeAdd__data_content-main">
                                 <div className="RangeAdd__data_content-main--phone">
                                     <p className={'input-label'}>
                                         Телефон
                                     </p>
-                                    <Input placeholder="Введите номер телефона" defaultValue='+7 (926)123-34-89' />
+                                    <Input placeholder="Введите номер телефона" value={phone} onChange={e => setPhone(e.target.value)} />
                                 </div>
                                 <div className="RangeAdd__data_content-main--email">
                                     <p className={'input-label'}>
                                         E-mail
                                     </p>
-                                    <Input placeholder="Введите ваш E-mail" defaultValue='zakaz@Europarts.ru' />
+                                    <Input placeholder="Введите ваш E-mail" value={email} onChange={e => setEmail(e.target.value)} />
                                 </div>
                             </div>
                         </div>
@@ -169,7 +194,6 @@ export const RangeAdd = (props: any) => {
                         <p className={'input-label'}>
                             Контактные лица
                         </p>
-
                         {persons.map((person, index) => {
                             return (
                                 <div
@@ -224,13 +248,13 @@ export const RangeAdd = (props: any) => {
                         <p className={'input-label'}>
                             Комментарий
                         </p>
-                        <TextArea rows={5} />
+                        <TextArea rows={5} value={comment} onChange={e => setComment(e.target.value)} />
                     </div>
                 </div>
             </div>
 
             <div className="RangeAdd__footer">
-                <Button className={'btn-grey-light'}>Сбросить данные</Button>
+                <Button className={'btn-grey-light'} onClick={resetHandler}>Сбросить данные</Button>
 
                 <div className="RangeAdd__footer_buttons">
                     <Button className={'ant-btn-secondary'}>Отменить</Button>

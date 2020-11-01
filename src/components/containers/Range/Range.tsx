@@ -206,7 +206,6 @@ export const Range = () => {
                                     {item.supplier}
                                     <span
                                         className="far fa-edit"
-                                        onClick={addRange}
                                     />
                                 </h1>
                             </div>

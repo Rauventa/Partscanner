@@ -867,6 +867,15 @@
           justify-content: space-between;
           align-items: center;
 
+          i {
+            cursor: pointer;
+            transition: all .3s;
+
+            &:hover {
+              color: $textLight;
+            }
+          }
+
           p, i {
             color: $textLightGrey;
             margin-bottom: 0;
