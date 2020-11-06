@@ -24,6 +24,9 @@ export const RangeItemRow = (props: any) => {
         props.onColumnHandler('', props.item.name, props.index, props.rowId);
     };
 
+    const indexColumn = Object.entries(props.checkRow);
+
+    const selectedIndex = indexColumn.filter(item => item[1] === selectValue);
     return (
         <>
             <Row key={props.index} justify="center">
@@ -47,7 +50,9 @@ export const RangeItemRow = (props: any) => {
                                 <span>Не выбрано</span>
                                 : <>
                                     <span>{selectValue}</span>
-                                    <span className={'select-column'}>Hello</span>
+                                    <span className={'select-column'}>
+                                        Столбец {selectedIndex[0][0].toUpperCase()}
+                                    </span>
                                 </>
                         }
                         onChange={(value) => columnHandler(value)}
@@ -63,6 +68,8 @@ export const RangeItemRow = (props: any) => {
                                     >
                                         <>
                                             {item[1]}
+
+                                            <p className={'column-input'}>Столбец {item[0].toUpperCase()}</p>
                                         </>
                                     </Option>
                                 </>

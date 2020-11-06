@@ -4,6 +4,21 @@
   flex-direction: column;
   height: 100%;
 
+  .lifeTransition-enter {
+    opacity: 0;
+  }
+  .lifeTransition-enter-active {
+    opacity: 1;
+    transition: opacity ease-in 300ms;
+  }
+  .lifeTransition-exit {
+    opacity: 1;
+  }
+  .lifeTransition-exit-active {
+    opacity: 0;
+    transition: opacity ease-out 300ms;
+  }
+
   &__content {
     background: #FBFBFB;
     border: 1px solid #CFCFCF;

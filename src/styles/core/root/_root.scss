@@ -251,3 +251,14 @@ textarea.ant-input {
     }
   }
 }
+
+.ant-select-item-option-content {
+  display: flex;
+  justify-content: space-between;
+
+  .column-input {
+    color: $textGrey;
+    margin-bottom: 0;
+    line-height: inherit;
+  }
+}

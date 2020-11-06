@@ -16,7 +16,13 @@ export const RangeItem = (props) => {
     const [rowId, setRowId] = useState({});
     const [pool, setPool] = useState([]);
     const [column, setColumn] = useState([]);
-    const [tableColumn, setTableColumn] = useState([]);
+    const [tableColumn, setTableColumn] = useState([
+        {
+            dataIndex: 'id',
+            key: 'id',
+            title: '№'
+        }
+    ]);
     const [modal, setModal] = useState(false);
     const [stroke, setStroke] = useState(false);
     const [selectRow, setSelectRow] = useState({});
@@ -106,7 +112,13 @@ export const RangeItem = (props) => {
     const reWriteSelect = () => {
       setSelectRow(rowId);
       setTest([]);
-        setTableColumn([])
+        setTableColumn([
+            {
+                dataIndex: 'id',
+                key: 'id',
+                title: '№'
+            }
+        ])
     };
 
     const columnHandler = (value: any, name: any, index: any, row: any) => {
@@ -202,7 +214,7 @@ export const RangeItem = (props) => {
 
         // tableColumns.push(hello[0]);
 
-        tableColumns.splice(index, 0, hello[0]);
+        tableColumns.splice(index + 1, 0, hello[0]);
 
         const reColumns = _.uniq(tableColumns, function(x){
             //@ts-ignore

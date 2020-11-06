@@ -2,6 +2,10 @@ import React, {useState} from 'react';
 import {Input, Button} from "antd";
 import {useHistory} from "react-router-dom";
 import {RangeLife} from "../../../UI/RangeLife";
+import {
+    CSSTransition,
+    TransitionGroup
+} from 'react-transition-group'
 
 export const RangeAdd = (props: any) => {
 
@@ -194,42 +198,49 @@ export const RangeAdd = (props: any) => {
                         <p className={'input-label'}>
                             Контактные лица
                         </p>
-                        {persons.map((person, index) => {
-                            return (
-                                <div
-                                    className="RangeAdd__persons_content"
-                                    //@ts-ignore
-                                    key={index+person}
-                                >
-                                    <div className="person">
-                                        <div className="person__heading">
-                                            <p>Контактное лицо {index + 1}</p>
-                                            <i className={'fas fa-times'} onClick={() => deleteHandler(person.id)}/>
-                                        </div>
-                                        <div className="person__data">
-                                            <div className="person__data_name">
-                                                <p className={'input-label'}>
-                                                    Имя
-                                                </p>
-                                                <Input placeholder="Введите имя" value={person.name} onChange={(e) => changeName(e.target.value, person.id, index)} />
+                        <TransitionGroup>
+                            {persons.map((person, index) => {
+                                return (
+                                    <CSSTransition
+                                        //@ts-ignore
+                                        key={index+person}
+                                        timeout={500}
+                                        classNames={'fade'}
+                                    >
+                                        <div
+                                            className="RangeAdd__persons_content"
+                                        >
+                                            <div className="person">
+                                                <div className="person__heading">
+                                                    <p>Контактное лицо {index + 1}</p>
+                                                    <i className={'fas fa-times'} onClick={() => deleteHandler(person.id)}/>
+                                                </div>
+                                                <div className="person__data">
+                                                    <div className="person__data_name">
+                                                        <p className={'input-label'}>
+                                                            Имя
+                                                        </p>
+                                                        <Input placeholder="Введите имя" value={person.name} onChange={(e) => changeName(e.target.value, person.id, index)} />
+                                                    </div>
+                                                    <div className="person__data_phone">
+                                                        <p className={'input-label'}>
+                                                            Телефон
+                                                        </p>
+                                                        <Input placeholder="Введите телефон" value={person.phone} onChange={(e) => changePhone(e.target.value, person.id, index)} />
+                                                    </div>
+                                                </div>
+                                                <div className="person__email">
+                                                    <p className={'input-label'}>
+                                                        E-mail
+                                                    </p>
+                                                    <Input placeholder="Введите email" value={person.email} onChange={(e) => changeEmail(e.target.value, person.id, index)} />
+                                                </div>
                                             </div>
-                                            <div className="person__data_phone">
-                                                <p className={'input-label'}>
-                                                    Телефон
-                                                </p>
-                                                <Input placeholder="Введите телефон" value={person.phone} onChange={(e) => changePhone(e.target.value, person.id, index)} />
-                                            </div>
                                         </div>
-                                        <div className="person__email">
-                                            <p className={'input-label'}>
-                                                E-mail
-                                            </p>
-                                            <Input placeholder="Введите email" value={person.email} onChange={(e) => changeEmail(e.target.value, person.id, index)} />
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })}
+                                    </CSSTransition>
+                                )
+                            })}
+                        </TransitionGroup>
 
                         <div className="RangeAdd__persons_new">
                             <p>Контактное лицо {persons.length + 1}</p>
