@@ -160,6 +160,10 @@ export const Range = () => {
     };
 
     const addRange = () => {
+        history.push(`/${title}/add`)
+    };
+
+    const editRange = () => {
         history.push(`/${title}/add`, {title: title})
     };
 
@@ -206,6 +210,7 @@ export const Range = () => {
                                     {item.supplier}
                                     <span
                                         className="far fa-edit"
+                                        onClick={editRange}
                                     />
                                 </h1>
                             </div>

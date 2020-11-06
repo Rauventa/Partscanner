@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Input, Button} from "antd";
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import {RangeLife} from "../../../UI/RangeLife";
 import {
     CSSTransition,
@@ -26,6 +26,9 @@ export const RangeAdd = (props: any) => {
     const [comment, setComment] = useState('');
 
     const history = useHistory();
+    const location = useLocation();
+
+    const supData = location.state;
 
     const { TextArea } = Input;
 
@@ -155,7 +158,12 @@ export const RangeAdd = (props: any) => {
                 <p className={'input-label'}>
                     Название поставщика
                 </p>
-                <Input placeholder="Название" value={supplier} onChange={e => setSupplier(e.target.value)} />
+                <Input
+                    placeholder="Название"
+                    //@ts-ignore
+                    value={(supplier !== '') || (supData === undefined) ? supplier : supData.title}
+                    onChange={e => setSupplier(e.target.value)}
+                />
             </div>
 
             <div className="RangeAdd__row">
