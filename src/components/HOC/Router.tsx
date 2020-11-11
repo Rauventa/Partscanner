@@ -3,6 +3,7 @@ import {Switch, Route} from 'react-router-dom';
 import {Range} from '../containers/Range/Range'
 import { RangeItem } from '../containers/Range/RangeItem/RangeItem';
 import { RangeAdd } from '../containers/Range/RangeAdd/RangeAdd';
+import { RangeList } from '../containers/Range/RangeList/RangeList';
 
 export const Router = () => {
     return (
@@ -10,11 +11,14 @@ export const Router = () => {
             <Route path={'/'} exact>
                 <Range />
             </Route>
-            <Route path={'/:priceItem'} exact>
+            <Route path={'/file/:priceItem'} exact>
                 <RangeItem />
             </Route>
-            <Route path={'/:range/add'}>
+            <Route path={'/:range/add'} exact>
                 <RangeAdd />
+            </Route>
+            <Route path={'/list'} exact>
+                <RangeList />
             </Route>
         </Switch>
     )

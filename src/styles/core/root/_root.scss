@@ -51,6 +51,10 @@ button.table-btn, button[disabled].table-btn  {
   @include postList;
 }
 
+.text-dark {
+  @include textDark;
+}
+
 .small-input-label {
   @include inputLabelSm;
 }

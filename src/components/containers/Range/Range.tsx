@@ -156,7 +156,7 @@ export const Range = () => {
     };
 
     const redirectHandler = (item: any) => {
-        history.push(`/${item.key}`, {item: item})
+        history.push(`/file/${item.key}`, {item: item})
     };
 
     const addRange = () => {
@@ -170,7 +170,7 @@ export const Range = () => {
     return (
         <div className="Range">
 
-            <div className="Range__heading">
+            <div className="heading">
                 <h1>Ассортимент поставщика</h1>
             </div>
 

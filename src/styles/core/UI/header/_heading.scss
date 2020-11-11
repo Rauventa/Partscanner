@@ -1,0 +1,22 @@
+.heading {
+  width: 100%;
+  height: auto;
+  padding: 2.5rem;
+  background-color: $bgLight;
+
+  h1 {
+    @include headingText;
+
+    span {
+      color: $textLightGrey;
+      margin-right: 1rem;
+      font-size: 18px;
+      transition: all .3s;
+
+      &:hover {
+        cursor: pointer;
+        color: $textLight;
+      }
+    }
+  }
+}

@@ -1,15 +1,15 @@
-.Range, .RangeItem, .RangeAdd {
+.Range, .RangeItem, .RangeAdd, .RangeList {
 
-  &__heading {
-    width: 100%;
-    height: auto;
-    padding: 2.5rem;
-    background-color: $bgLight;
-
-    h1 {
-      @include headingText;
-    }
-  }
+  //&__heading {
+  //   width: 100%;
+  //   height: auto;
+  //   padding: 2.5rem;
+  //   background-color: $bgLight;
+  //
+  //   h1 {
+  //     @include headingText;
+  //   }
+  // }
 
   &__supplier {
     padding: 2.5rem;
@@ -316,28 +316,28 @@
   }
 }
 
-.RangeItem, .RangeAdd {
+.RangeItem, .RangeAdd, .RangeList {
 
   .ant-input {
     padding: 0.5rem 1rem !important;
     border-radius: 5px !important;
   }
 
-  &__heading {
-    h1 {
-      span {
-        color: $textLightGrey;
-        margin-right: 1rem;
-        font-size: 18px;
-        transition: all .3s;
-
-        &:hover {
-          cursor: pointer;
-          color: $textLight;
-        }
-      }
-    }
-  }
+  //&__heading {
+  //  h1 {
+  //    span {
+  //      color: $textLightGrey;
+  //      margin-right: 1rem;
+  //      font-size: 18px;
+  //      transition: all .3s;
+  //
+  //      &:hover {
+  //        cursor: pointer;
+  //        color: $textLight;
+  //      }
+  //    }
+  //  }
+  //}
 
   &__name {
     padding: 40px 2.5rem;
@@ -962,6 +962,18 @@
         margin-left: 10px;
       }
     }
+  }
+}
+
+.RangeList {
+  &__head {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 40px;
+  }
+  &__stats {
+    padding: 0 40px 40px 40px;
   }
 }
 

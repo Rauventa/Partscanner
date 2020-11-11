@@ -331,7 +331,7 @@ export const RangeItem = (props) => {
                 <Button type={'primary'} onClick={closeModal}>Применить настройки и сохранить шаблон</Button>
             </Modal>
 
-            <div className="RangeItem__heading">
+            <div className="heading">
                 <h1>
                     <span className={'fas fa-arrow-left'} onClick={history.goBack} />
                     Настройка файла

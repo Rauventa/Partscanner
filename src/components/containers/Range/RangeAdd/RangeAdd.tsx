@@ -147,7 +147,7 @@ export const RangeAdd = (props: any) => {
     return (
         <div className={'RangeAdd'}>
 
-            <div className="RangeAdd__heading">
+            <div className="heading">
                 <h1>
                     <span className={'fas fa-arrow-left'} onClick={history.goBack} />
                     Создание поставщика
