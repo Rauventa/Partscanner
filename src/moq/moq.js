@@ -249,3 +249,150 @@ export const defaultColumns = [
         value: 'count'
     },
 ];
+
+export const rangeList = [
+    {
+        key: '1',
+        supplier: 'Europarts',
+        isOn: false,
+        isOnLock: true,
+        time: "2020-11-13T09:23:10+0000",
+        actual: 2000,
+        count: 4300,
+        docs: [
+            {
+                key: '1',
+                name: 'Мой интернет магазин',
+                date: '2012-04-23T18:25:43.511Z',
+                size: 10340,
+                list: false,
+                settings: false,
+                count: 12470,
+                format: '.xls'
+            },
+            {
+                key: '2',
+                name: 'laskdjasdasd',
+                date: '2012-04-23T18:25:43.511Z',
+                size: 234234,
+                list: true,
+                settings: false,
+                count: 1222,
+                format: '.csv'
+            },
+            {
+                key: '3',
+                name: 'sdfsdfsdf',
+                date: '2012-04-23T18:25:43.511Z',
+                size: 12312,
+                list: true,
+                settings: true,
+                count: 333,
+                format: '.xls'
+            },
+            {
+                key: '11',
+                name: 'Мой интернет магазин',
+                date: '2012-04-23T18:25:43.511Z',
+                size: 10340,
+                list: false,
+                settings: false,
+                count: 12470,
+                format: '.xls'
+            },
+        ]
+    },
+    {
+        key: '2',
+        supplier: 'Armtek',
+        isOn: true,
+        isOnLock: true,
+        time: "2020-11-14T14:52:00+0000",
+        actual: 10002,
+        count: 12333,
+        docs: [
+            {
+                key: '14',
+                name: 'Мой интернет магазин',
+                date: '2012-04-23T18:25:43.511Z',
+                size: 10340,
+                list: false,
+                settings: false,
+                count: 12470,
+                format: '.xls'
+            },
+            {
+                key: '15',
+                name: 'laskdjasdasd',
+                date: '2012-04-23T18:25:43.511Z',
+                size: 234234,
+                list: true,
+                settings: false,
+                count: 1222,
+                format: '.csv'
+            },
+            {
+                key: '16',
+                name: 'sdfsdfsdf',
+                date: '2012-04-23T18:25:43.511Z',
+                size: 12312,
+                list: true,
+                settings: true,
+                count: 333,
+                format: '.xls'
+            },
+        ]
+    },
+    {
+        key: '3',
+        supplier: 'HUP',
+        isOn: true,
+        isOnLock: false,
+        time: "2020-11-15T01:00:00+0000",
+        actual: 1,
+        count: 10,
+        docs: [
+            {
+                key: '15',
+                name: 'laskdjasdasd',
+                date: '2012-04-23T18:25:43.511Z',
+                size: 234234,
+                list: true,
+                settings: false,
+                count: 1222,
+                format: '.csv'
+            },
+            {
+                key: '16',
+                name: 'sdfsdfsdf',
+                date: '2012-04-23T18:25:43.511Z',
+                size: 12312,
+                list: true,
+                settings: true,
+                count: 333,
+                format: '.xls'
+            },
+        ]
+    },
+    {
+        key: '4',
+        supplier: 'Casrt',
+        isOn: false,
+        isOnLock: false,
+        time: "2017-11-20T17:24:22+0000",
+        actual: 82,
+        count: 140,
+        docs: [
+            {
+                key: '1',
+                name: 'Мой интернет магазин',
+                date: '2012-04-23T18:25:43.511Z',
+                size: 10340,
+                list: false,
+                settings: false,
+                count: 12470,
+                format: '.xls'
+            },
+        ]
+    }
+];
