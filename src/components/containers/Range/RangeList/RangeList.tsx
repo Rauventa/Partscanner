@@ -13,8 +13,6 @@ import notimer from '../../../../assets/images/notimer.png';
 export const RangeList = () => {
 
     const [selectedRows, setSelectedRows] = useState([]);
-    const [actual, setActual] = useState([]);
-    const [old, setOld] = useState([]);
     const [modal, setModal] = useState(false);
     const [currentModal, setCurrentModal] = useState({});
     const [term, setTerm] = useState('');
@@ -225,9 +223,6 @@ export const RangeList = () => {
                 const diffDuration = moment.duration(diff);
 
                 const valid = diffDuration.milliseconds() < 0;
-
-                const newOld = [...old];
-                const newActual = [...actual];
 
                 return (
                     value === null ?

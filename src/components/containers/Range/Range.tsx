@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Select, Upload, message, Button, Table, Row, Col, Input} from 'antd';
-import {useHistory} from 'react-router-dom';
+import {useHistory, NavLink} from 'react-router-dom';
 import {moqArray} from "../../../moq/moq";
 import cloud from '../../../assets/images/cloud.svg';
 
@@ -10,7 +10,6 @@ import filter from '../../../assets/images/Table/fields/filter.svg';
 import excel from '../../../assets/images/Table/excel.png'
 import csv from '../../../assets/images/Table/csv.png'
 import { RangeLife } from '../../UI/RangeLife';
-// import { NavLink } from 'react-router-dom';
 
 export const Range = () => {
 
@@ -29,7 +28,6 @@ export const Range = () => {
             setSelectedRows(selectedRows);
         },
     };
-
     const columns = [
         {
             title: 'Название',
@@ -400,7 +398,9 @@ export const Range = () => {
                         </div>
 
                         <div className="Range__buttons">
-                            <Button type={'primary'}>Сохранить</Button>
+                            <NavLink to={'/list'}>
+                                <Button type={'primary'}>Сохранить</Button>
+                            </NavLink>
                         </div>
                     </React.Fragment>
                 )
