@@ -871,7 +871,6 @@
       transition: opacity 300ms, transform 300ms;
     }
 
-
     &_content {
       background-color: $bgSecondary;
       padding: 20px;
@@ -993,11 +992,21 @@
   &__stats {
     padding: 0 40px 40px 40px;
 
+    .text-dark {
+      margin-bottom: 20px;
+    }
+
     &_main {
       .ant-col {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        max-width: fit-content;
+        margin-right: 5vw;
+
+        &:last-child {
+          margin-right: 0;
+        }
 
         p {
           text-align: center;
@@ -1022,7 +1031,7 @@
         margin-right: 15px;
 
         &-text {
-          font-size: 14px !important;
+          font-size: 16px !important;
           font-weight: bold;
         }
       }
@@ -1069,6 +1078,36 @@
     padding: 40px;
     margin-bottom: 40px;
 
+    .danger {
+      td {
+        &:first-child {
+          border-radius: 5px 0 0 5px;
+          border-left: 5px solid #E01838;
+          border-spacing: initial;
+        }
+      }
+    }
+
+    .active {
+      td {
+        &:first-child {
+          border-radius: 5px 0 0 5px;
+          border-left: 5px solid #65CE5C;
+          border-spacing: initial;
+        }
+      }
+    }
+
+    .disabled {
+      td {
+        &:first-child {
+          border-radius: 5px 0 0 5px;
+          border-left: 5px solid #9F9F9F;
+          border-spacing: initial;
+        }
+      }
+    }
+
     p {
       margin-bottom: 0;
       line-height: 20px;
@@ -1099,9 +1138,21 @@
     }
 
     .time-table {
-      span {
-        font-weight: bold;
-        margin: 0 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &__image {
+        margin-right: 10px;
+      }
+
+      &__content {
+        display: flex;
+        flex-direction: column;
+        span {
+          font-weight: bold;
+          margin: 0 0.25rem;
+        }
       }
     }
 
@@ -1170,6 +1221,10 @@
                 background-color: #E3E3E3;
                 border: none;
                 padding: 1.5rem 1rem;
+
+                &:first-child {
+                  border-spacing: initial;
+                }
               }
             }
           }
@@ -1180,12 +1235,6 @@
                 background-color: #FFFEFE;
                 border-top: 1px solid #EBEBEB;
                 border-bottom: 1px solid #EBEBEB;
-
-                &:first-child {
-                  border-radius: 5px 0 0 5px;
-                  border-left: 5px solid #65CE5C;
-                  border-spacing: initial;
-                }
 
                 &:last-child {
                   border-radius: 0 5px 5px 0;
@@ -1309,6 +1358,21 @@
               }
             }
           }
+        }
+      }
+    }
+
+    .table-time {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      p {
+        margin-bottom: 0;
+
+        &:last-child {
+          font-weight: bold;
+          margin-left: 5px;
         }
       }
     }
