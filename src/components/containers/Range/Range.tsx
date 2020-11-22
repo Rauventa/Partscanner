@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Select, Upload, message, Button, Table, Row, Col, Input} from 'antd';
 import {useHistory, NavLink} from 'react-router-dom';
 import {moqArray} from "../../../moq/moq";
@@ -16,6 +16,10 @@ export const Range = () => {
     const [title, setTitle] = useState('Europarts');
     const [selectedRows, setSelectedRows] = useState([]);
     const [summary, setSummary] = useState([]);
+
+    // useEffect(() => {
+    //     window.scrollTo(0, 0);
+    // });
 
     const history = useHistory();
 

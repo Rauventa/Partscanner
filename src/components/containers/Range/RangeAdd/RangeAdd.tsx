@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Input, Button} from "antd";
 import {useHistory, useLocation} from "react-router-dom";
 import {RangeLife} from "../../../UI/RangeLife";
@@ -24,6 +24,10 @@ export const RangeAdd = (props: any) => {
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [comment, setComment] = useState('');
+
+    // useEffect(() => {
+    //     window.scrollTo(0, 0);
+    // });
 
     const history = useHistory();
     const location = useLocation();

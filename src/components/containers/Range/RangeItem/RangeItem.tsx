@@ -9,6 +9,7 @@ import { moqHeads, defaultColumns } from '../../../../moq/moq';
 import { RangeItemRow } from './RangeItemRow';
 import search from '../../../../assets/images/Table/fields/search.svg';
 import correct from "../../../../assets/images/correct.svg";
+import warning from "../../../../assets/images/warning.png";
 
 // @ts-ignore
 export const RangeItem = (props) => {
@@ -23,6 +24,7 @@ export const RangeItem = (props) => {
             title: '№'
         }
     ]);
+
     const [modal, setModal] = useState(false);
     const [stroke, setStroke] = useState(false);
     const [selectRow, setSelectRow] = useState({});
@@ -46,14 +48,25 @@ export const RangeItem = (props) => {
     };
 
     useEffect(() => {
+
+        // window.scrollTo(0, 0);
+
         if(changeRow === selectRow) return;
 
-        setChangeRow(selectRow)
+        setChangeRow(selectRow);
+        
     },[changeRow, selectRow]);
 
 
     const history = useHistory();
     const location = useLocation();
+
+    //@ts-ignore
+    const item = location.state.item;
+
+    const scrollWarning = () => {
+        window.scrollTo(0, 400)
+    };
 
     const closeModal = () => {
       setModal(false)
@@ -62,9 +75,6 @@ export const RangeItem = (props) => {
     const showModal = () => {
         setModal(true)
     };
-
-    //@ts-ignore
-    const item = location.state.item;
 
     const columns = [
         {
@@ -120,6 +130,76 @@ export const RangeItem = (props) => {
             }
         ])
     };
+
+    //@ts-ignore
+    const overflowCorrectColumns = [
+        {
+            dataIndex: 'id',
+            key: 'id',
+            title: '№'
+        },
+        {
+            dataIndex: 'a',
+            key: 'a',
+            title: '---'
+        },
+        {
+            dataIndex: 'b',
+            key: 'b',
+            title: '---'
+        },
+        {
+            dataIndex: 'c',
+            key: 'c',
+            title: '---'
+        },
+        {
+            dataIndex: 'd',
+            key: 'd',
+            title: '---'
+        },
+        {
+            dataIndex: 'e',
+            key: 'e',
+            title: '---'
+        },
+        {
+            dataIndex: 'f',
+            key: 'f',
+            title: '---'
+        },
+    ];
+
+    //@ts-ignore
+    const overflowCorrectData = [
+        {
+            id: 1,
+            a: '---',
+            b: '---',
+            c: '---',
+            d: '---',
+            e: '---',
+            f: '---',
+        },
+        {
+            id: 2,
+            a: '---',
+            b: '---',
+            c: '---',
+            d: '---',
+            e: '---',
+            f: '---',
+        },
+        {
+            id: 3,
+            a: '---',
+            b: '---',
+            c: '---',
+            d: '---',
+            e: '---',
+            f: '---',
+        }
+    ];
 
     const columnHandler = (value: any, name: any, index: any, row: any) => {
 
@@ -341,7 +421,11 @@ export const RangeItem = (props) => {
                 <p className={'input-label'}>
                     Название файла
                 </p>
-                <Input placeholder="Название" defaultValue={item.name} />
+                <Input
+                    placeholder="Название"
+                    //@ts-ignore
+                    defaultValue={item.name}
+                />
             </div>
 
             <div className="RangeItem__template">
@@ -360,19 +444,33 @@ export const RangeItem = (props) => {
                 <p className={'input-label'}>
                     Тип файла
                 </p>
-                {item.format === '.xls' ?
+                {
+                    //@ts-ignore
+                    item.format === '.xls' ?
                     <div className="RangeItem__type_text">
                         <img src={excel} alt={excel}/>
-                        <p>{item.format}</p>
+                        <p>
+                            {
+                                //@ts-ignore
+                                item.format
+                            }
+                        </p>
                     </div>
                     :
                     <div className="RangeItem__type_text">
                         <img src={csv} alt={csv}/>
-                        <p>{item.format}</p>
+                        <p>
+                            {
+                                //@ts-ignore
+                                item.format
+                            }
+                        </p>
                     </div>
                 }
 
-                {item.format === '.csv' ?
+                {
+                    //@ts-ignore
+                    item.format === '.csv' ?
                     <div className="RangeItem__type_select">
                         <Row justify={'space-between'}>
                             <Col xs={24} sm={24} md={8} lg={5} xl={5}>
@@ -386,10 +484,10 @@ export const RangeItem = (props) => {
                                                 e => setSeparator(e.target.value)
                                             }
                                         >
-                                            <Radio value={1}>;</Radio>
+                                            <Radio value={1}>точка с запятой</Radio>
                                             <Radio value={2}>табуляция</Radio>
                                             <Radio value={3}>пробел</Radio>
-                                            <Radio value={4}>,</Radio>
+                                            <Radio value={4}>запятая</Radio>
                                             <Radio value={5} className={'custom-radio'}>
                                                 другое
                                                 <Input placeholder="$" defaultValue={'$'} />
@@ -440,7 +538,7 @@ export const RangeItem = (props) => {
                 }
             </div>
 
-            <div className="RangeItem__pool">
+            <div className="RangeItem__pool" id={'pool'}>
                 <div className="RangeItem__pool_heading">
                     <h1>Строка с заголовками столбцов</h1>
                     <Checkbox
@@ -475,114 +573,136 @@ export const RangeItem = (props) => {
                                     rowId.number
                                 }</span>
                             </p>
-                            {/*<Button type={'primary'} disabled>Сбросить строку</Button>*/}
                         </>
                         : null
                     }
                 </div>
             </div>
 
-            {Object.keys(rowId).length !== 0 ?
-                <div className="RangeItem__columns">
-                    <div className="RangeItem__columns_heading">
-                        <h1>Cоответствие столбцов</h1>
-                        <p>Установите соответствие заголовков столбцов базы данных и файла</p>
-                    </div>
-                    <div className="RangeItem__columns_content">
-                        <Row justify="center">
-                            <Col xs={8} sm={8} md={8} lg={8} xl={8}>
-                                <h2>Заголовок столбца в базе данных</h2>
-                            </Col>
-                            <Col xs={1} sm={1} md={1} lg={1} xl={1}/>
-                            <Col xs={8} sm={8} md={8} lg={8} xl={8}>
-                                <h2>Заголовок столбца в файле</h2>
-                            </Col>
-                            <Col xs={1} sm={1} md={1} lg={1} xl={1}/>
-                        </Row>
-                        {defaultColumns.map((item, index) => {
-                            return (
-                                <RangeItemRow
-                                    //@ts-ignore
-                                    index={index}
-                                    rowId={selectRow}
-                                    checkRow={rowId}
-                                    item={item}
-                                    onColumnHandler={columnHandler}
-                                />
-                            )
-                        })}
-                        <Row justify="center">
-                            <Col xs={8} sm={8} md={8} lg={8} xl={8}/>
-                            <Col xs={1} sm={1} md={1} lg={1} xl={1}/>
-                            <Col xs={8} sm={8} md={8} lg={8} xl={8} className={'button-col'}>
-                                <Button
-                                    className={'btn-grey-light'}
-                                    //@ts-ignore
-                                    onClick={reWriteSelect}
-                                >
-                                    Сбросить столбцы
-                                </Button>
-                            </Col>
-                            <Col xs={1} sm={1} md={1} lg={1} xl={1}/>
-                        </Row>
-                    </div>
-                </div>
-                : null
-            }
+            <div className="RangeItem__columns">
+                {Object.keys(rowId).length === 0 ?
+                    <div className={'RangeItem__columns_overflow'}>
 
-            {pool.length !== 0 ?
-                <div className="RangeItem__correct">
-                    <div className="RangeItem__correct_is">
-                        <img src={correct} alt={correct}/>
-                        <p>Проверка</p>
-                    </div>
-                    <div className="RangeItem__correct_heading">
-                        <Row justify="space-between">
-                            <Col xs={24} sm={24} md={10} lg={10} xl={10}>
-                                <p>Проверьте правильность расстановки столбцов</p>
-                            </Col>
-                            <Col xs={24} sm={24} md={10} lg={10} xl={10}>
-                                <Input placeholder="Поиск" prefix={ <img src={search} alt={search} /> } />
-                            </Col>
-                        </Row>
-                    </div>
-                    <Table
-                        dataSource={pool}
-                        columns={tableColumn}
-                        pagination={{
-                            //@ts-ignore
-                            position: ["bottomLeft"],
-                            defaultPageSize: 5,
-                            showSizeChanger: true,
-                            pageSizeOptions: ['5', '10', '20', '50']
-                        }}
-                    />
-                    <p>
-                        Всего позиций {pool.length}
-                    </p>
+                    </div> : null
+                }
+                <div className="RangeItem__columns_heading">
+                    <h1>Cоответствие столбцов</h1>
+                    <p>Установите соответствие заголовков столбцов базы данных и файла</p>
                 </div>
-                : null
-            }
 
-            {pool.length !== 0 ?
-                <div className="RangeItem__check">
-                    <Checkbox>Подтверждаю, что проверил правильность соответствия столбцов</Checkbox>
-                    <div className="RangeItem__check_buttons">
-                        <div className="RangeItem__check_buttons-first">
-                            <Button type={'primary'}>Применить настройки файла</Button>
-                            <Button
-                                className={'ant-btn-secondary'}
-                                //@ts-ignore
-                                onClick={showModal}
-                            >
-                                Сохранить шаблон cоответствия столбцов
-                            </Button>
+                {Object.keys(rowId).length === 0 ?
+                    <div className="RangeItem__columns_warning">
+                        <div className="RangeItem__columns_warning-img">
+                            <img src={warning} alt="warning"/>
                         </div>
-                        <Button className={'btn-grey-light'} onClick={resetAll}>Сбросить настройки</Button>
-                    </div>
+                        <div className="RangeItem__columns_warning-text">
+                            <p>Выберите строку с заголовками столбцов</p>
+                            <p>
+                                Прежде чем установить соответствие столбцов
+                                &nbsp;
+                                <span onClick={scrollWarning}>Выберите строку с заголовками столбцов</span>
+                            </p>
+                        </div>
+                    </div> : null
+                }
+
+                <div className="RangeItem__columns_content">
+                    <Row justify="center">
+                        <Col xs={8} sm={8} md={8} lg={8} xl={8}>
+                            <h2>Заголовок столбца в базе данных</h2>
+                        </Col>
+                        <Col xs={1} sm={1} md={1} lg={1} xl={1}/>
+                        <Col xs={8} sm={8} md={8} lg={8} xl={8}>
+                            <h2>Заголовок столбца в файле</h2>
+                        </Col>
+                        <Col xs={1} sm={1} md={1} lg={1} xl={1}/>
+                    </Row>
+                    {defaultColumns.map((item, index) => {
+                        return (
+                            <RangeItemRow
+                                //@ts-ignore
+                                index={index}
+                                rowId={selectRow}
+                                checkRow={rowId}
+                                item={item}
+                                onColumnHandler={columnHandler}
+                            />
+                        )
+                    })}
+                    <Row justify="center">
+                        <Col xs={8} sm={8} md={8} lg={8} xl={8}/>
+                        <Col xs={1} sm={1} md={1} lg={1} xl={1}/>
+                        <Col xs={8} sm={8} md={8} lg={8} xl={8} className={'button-col'}>
+                            <Button
+                                className={'btn-grey-light'}
+                                //@ts-ignore
+                                onClick={reWriteSelect}
+                            >
+                                Сбросить столбцы
+                            </Button>
+                        </Col>
+                        <Col xs={1} sm={1} md={1} lg={1} xl={1}/>
+                    </Row>
                 </div>
-                : null
-            }
+            </div>
+
+            <div className="RangeItem__correct">
+
+                {pool.length === 0 ?
+                    <div className={'RangeItem__correct_overflow'}>
+
+                    </div>
+                    : null
+                }
+
+                <div className="RangeItem__correct_is">
+                    <img src={correct} alt={correct}/>
+                    <p>Проверка</p>
+                </div>
+                <div className="RangeItem__correct_heading">
+                    <Row justify="space-between">
+                        <Col xs={24} sm={24} md={10} lg={10} xl={10}>
+                            <p>Проверьте правильность расстановки столбцов</p>
+                        </Col>
+                        <Col xs={24} sm={24} md={10} lg={10} xl={10}>
+                            <Input placeholder="Поиск" prefix={ <img src={search} alt={search} /> } />
+                        </Col>
+                    </Row>
+                </div>
+                <Table
+                    //@ts-ignore
+                    dataSource={pool.length === 0 ? overflowCorrectData : pool}
+                    //@ts-ignore
+                    columns={pool.length === 0 ? overflowCorrectColumns : tableColumn}
+                    pagination={{
+                        //@ts-ignore
+                        position: ["bottomLeft"],
+                        defaultPageSize: 5,
+                        showSizeChanger: true,
+                        pageSizeOptions: ['5', '10', '20', '50']
+                    }}
+                />
+                <p>
+                    Всего позиций {pool.length}
+                </p>
+            </div>
+
+            <div className="RangeItem__check">
+                <Checkbox>Подтверждаю, что проверил правильность соответствия столбцов</Checkbox>
+                <div className="RangeItem__check_buttons">
+                    <div className="RangeItem__check_buttons-first">
+                        <Button type={'primary'}>Применить настройки файла</Button>
+                        <Button
+                            className={'ant-btn-secondary'}
+                            //@ts-ignore
+                            onClick={showModal}
+                        >
+                            Сохранить шаблон cоответствия столбцов
+                        </Button>
+                    </div>
+                    <Button className={'btn-grey-light'} onClick={resetAll}>Сбросить настройки</Button>
+                </div>
+            </div>
         </div>
     )
 };

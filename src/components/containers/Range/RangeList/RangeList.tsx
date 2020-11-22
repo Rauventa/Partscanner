@@ -1,31 +1,73 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useHistory} from "react-router-dom";
-import {Button, Col, Input, Row, Table, Progress, Switch, Modal} from 'antd';
-import filter from "../../../../assets/images/Table/fields/filter.svg";
+import {Button, Col, Input, Modal, Progress, Row, Select, Table, Tag} from 'antd';
 import search from "../../../../assets/images/Table/fields/search.svg";
+import filter from "../../../../assets/images/Table/fields/filter.svg";
 import {rangeList} from "../../../../moq/moq";
 import moment from 'moment';
+import 'moment/locale/ru';
 import excel from '../../../../assets/images/Table/excel.png'
 import csv from '../../../../assets/images/Table/csv.png';
 import timer from '../../../../assets/images/timer.png';
 import notimer from '../../../../assets/images/notimer.png';
+import {RangeListSwitcher} from "./RangeListSwitcher";
 
 export const RangeList = () => {
 
     const [selectedRows, setSelectedRows] = useState([]);
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [modal, setModal] = useState(false);
     const [currentModal, setCurrentModal] = useState({});
     const [term, setTerm] = useState('');
+    const [filtered, setFiltered] = useState([]);
+    const [filterValue, setFilterValue] = useState('off');
+
+    // useEffect(() => {
+    //     window.scrollTo(0, 0);
+    // });
 
     const history = useHistory();
+
+    const { Option } = Select;
+
+    moment.locale('ru');
 
     const rowSelection = {
         //@ts-ignore
         onChange: (selectedRowKeys, selectedRows) => {
             setSelectedRows(selectedRows);
+            setSelectedRowKeys(selectedRowKeys)
         },
+        selectedRowKeys,
         selections: [
-            Table.SELECTION_ALL
+            {
+                key: 'clear',
+                text: 'Очистить выделение',
+                //@ts-ignore
+                onSelect: () => {
+                    setSelectedRowKeys([]);
+                },
+            },
+            {
+                key: 'page',
+                text: 'Выбрать все на странице',
+                //@ts-ignore
+                onSelect: changableRowKeys => {
+                    setSelectedRowKeys(changableRowKeys);
+                },
+            },
+            {
+                key: 'all-pages',
+                text: 'Выбрать все',
+                //@ts-ignore
+                onSelect: () => {
+                    const newRows = Object.keys(rangeList).map(item => {
+                        return String(Number(item) + 1)
+                    });
+                    //@ts-ignore
+                    setSelectedRowKeys(newRows)
+                },
+            },
         ]
     };
 
@@ -60,9 +102,7 @@ export const RangeList = () => {
         const diff = expiration.diff(now);
         const diffDuration = moment.duration(diff);
 
-        const valid = diffDuration.milliseconds() < 0;
-
-        return valid
+        return diffDuration.milliseconds() < 0
     });
 
     const fileColumns = [
@@ -127,7 +167,7 @@ export const RangeList = () => {
             dataIndex: 'supplier',
             key: 'supplier',
             align: 'left',
-            width: '37%',
+            width: '17%',
             sortDirections: ['descend', 'ascend'],
             //@ts-ignore
             sorter: (a, b) => {
@@ -139,15 +179,60 @@ export const RangeList = () => {
             },
             //@ts-ignore
             render: (value, record) => {
-                const expiration = moment(record.createdAt).format('DD-MM-YYYY HH:mm:ss');
+                const now = moment();
+                const expiration = moment(record.createdAt);
+                const diff = now.diff(expiration);
+                const diffDuration = moment.duration(diff).asMinutes();
 
-                return (
-                    <div className={'table-supplier'}>
-                        <p className={'stats-bold'}>{value}</p>
-                        <p className={'table-supplier__time'}>{expiration}</p>
-                    </div>
-                )
+                if (diffDuration.valueOf() < 10 && diffDuration.valueOf() > 0) {
+                    return (
+                        <div className={'table-supplier'}>
+                            <p className={'stats-bold'}>{value}</p>
+                            <p className={'table-supplier__time time-now'}>Сейчас</p>
+                        </div>
+                    )
+                } else if (diffDuration.valueOf() < 1440 && diffDuration.valueOf() > 10) {
+                    return (
+                        <div className={'table-supplier'}>
+                            <p className={'stats-bold'}>{value}</p>
+                            <p className={'table-supplier__time'}>Сегодня в {expiration.format('HH:mm')}</p>
+                        </div>
+                    )
+                } else if (diffDuration.valueOf() < 2880 && diffDuration.valueOf() > 1440) {
+                    return (
+                        <div className={'table-supplier'}>
+                            <p className={'stats-bold'}>{value}</p>
+                            <p className={'table-supplier__time'}>Вчера в {expiration.format('HH:mm')}</p>
+                        </div>
+                    )
+                } else {
+                    return (
+                        <div className={'table-supplier'}>
+                            <p className={'stats-bold'}>{value}</p>
+                            <p className={'table-supplier__time'}>{expiration.format('DD MMMM YYYY HH:mm')}</p>
+                        </div>
+                    )
+                }
             }
+        },
+        {
+            title: 'Участие в выгрузках',
+            dataIndex: 'landings',
+            key: 'landings',
+            // align: 'center',
+            //@ts-ignore
+            render: landings => (
+                landings ?
+                <>
+                    {landings.map((item: any, index: any) => {
+                        return (
+                            <Tag key={index} className={'landings-tags'}>
+                                {item.name}
+                            </Tag>
+                        )
+                    })}
+                </> : <p className={'landings-text'}>Не находится в выгрузках</p>
+            )
         },
         {
             title: 'Включен',
@@ -155,32 +240,15 @@ export const RangeList = () => {
             key: 'isOn',
             align: 'center',
             width: '13%',
-            filters: [
-                {
-                    text: 'Активен',
-                    value: true,
-                },
-                {
-                    text: 'Выключен',
-                    value: false,
-                },
-            ],
-            filterMultiple: false,
             //@ts-ignore
-            onFilter: (value, record) => record.isOn === value,
-            //@ts-ignore
-            render: (value, record) => (
-                record.isOnLock ?
-                    <div className={'table-ison'}>
-                        <i className="fas fa-lock"/>
-                        <Switch defaultChecked={value} disabled />
-                    </div>
-                    :
-                    <div className={'table-ison'}>
-                        <i className="fas fa-unlock"/>
-                        <Switch defaultChecked={value} />
-                    </div>
-            )
+            render: (value, record) => {
+                return (
+                    <RangeListSwitcher
+                        record={record}
+                        value={value}
+                    />
+                )
+            }
         },
         {
             title: 'Срок годности ассортимента',
@@ -188,32 +256,6 @@ export const RangeList = () => {
             key: 'time',
             align: 'center',
             width: '13%',
-            filters: [
-                {
-                    text: 'Активен',
-                    value: 'active',
-                },
-                {
-                    text: 'Выключен',
-                    value: 'disable',
-                },
-            ],
-            filterMultiple: false,
-            //@ts-ignore
-            onFilter: (value, record) => {
-
-                const now = moment();
-                const expiration = moment(record.time);
-                const diff = expiration.diff(now);
-                const diffDuration = moment.duration(diff);
-                const valid = diffDuration.milliseconds() < 0;
-
-                if (value === 'active' && record.time !== null) {
-                    return !valid
-                } else {
-                    return valid
-                }
-            },
             sortDirections: ['descend', 'ascend'],
             //@ts-ignore
             render: (value, record) => {
@@ -256,11 +298,11 @@ export const RangeList = () => {
                             </div>
 
                             <div className="time-table__content">
-                                <p className={'time-invalid'}>Истек</p>
+                                <p className={'time-invalid'}>Истек на</p>
                                 <p>
-                                    <span>{expiration.days()}</span>д
-                                    <span>{expiration.hours()}</span>ч
-                                    <span>{expiration.minutes()}</span>м
+                                    <span>{Math.abs(diffDuration.days())}</span>д
+                                    <span>{Math.abs(diffDuration.hours())}</span>ч
+                                    <span>{Math.abs(diffDuration.minutes())}</span>м
                                 </p>
                             </div>
                         </div>
@@ -281,7 +323,7 @@ export const RangeList = () => {
             }
         },
         {
-            title: 'Колличество позиций',
+            title: 'Количество позиций',
             dataIndex: 'count',
             key: 'count',
             align: 'center',
@@ -363,7 +405,56 @@ export const RangeList = () => {
 
     const searchingFor = (term: any) => {
         return function(x: any) {
+            // x.landings.filter((item: any) => item.name.toLowerCase().includes(term.toLowerCase()))
             return x.supplier.toLowerCase().includes(term.toLowerCase()) || !term
+        }
+    };
+
+    const filterHandler = (value: any) => {
+        if (value === 'active') {
+            const filtered = rangeList.filter(item => item.isOn);
+            //@ts-ignore
+            setFiltered(filtered);
+            setFilterValue(value)
+        } else if (value === 'disabled') {
+            const filtered = rangeList.filter(item => !item.isOn);
+            //@ts-ignore
+            setFiltered(filtered);
+            setFilterValue(value)
+        } else if (value === 'actual') {
+            const filtered = rangeList.filter(item => {
+                const now = moment();
+                const expiration = moment(item.time);
+                const diff = expiration.diff(now);
+                const diffDuration = moment.duration(diff);
+
+                const valid = diffDuration.milliseconds() < 0;
+
+                if (item.time !== null) {
+                    return !valid
+                }
+            });
+
+            //@ts-ignore
+            setFiltered(filtered);
+            setFilterValue(value)
+        } else if (value === 'old') {
+            const filtered = rangeList.filter(item => {
+                const now = moment();
+                const expiration = moment(item.time);
+                const diff = expiration.diff(now);
+                const diffDuration = moment.duration(diff);
+
+                return diffDuration.milliseconds() < 0
+            });
+
+            //@ts-ignore
+            setFiltered(filtered);
+            setFilterValue(value)
+        } else {
+            //@ts-ignore
+            setFiltered([]);
+            setFilterValue(value)
         }
     };
 
@@ -454,25 +545,25 @@ export const RangeList = () => {
                           <Row>
                               <Col xs={4} sm={4} md={4} lg={4} xl={4}>
                                   <p className={'stats-heading'}>Всего</p>
-                                  <p>{rangeList.length}</p>
+                                  <p onClick={() => filterHandler('off')}>{rangeList.length}</p>
                               </Col>
                               <Col xs={4} sm={4} md={4} lg={4} xl={4}>
                                   <p className={'stats-heading'}>Включено</p>
-                                  <p>{rangeList.filter(item => item.isOn).length}</p>
+                                  <p onClick={() => filterHandler('active')}>{rangeList.filter(item => item.isOn).length}</p>
                               </Col>
                               <Col xs={4} sm={4} md={4} lg={4} xl={4}>
                                   <p className={'stats-heading'}>Выключено</p>
-                                  <p className={'text-danger'}>{rangeList.filter(item => !item.isOn).length}</p>
+                                  <p className={'text-danger'} onClick={() => filterHandler('disabled')}>{rangeList.filter(item => !item.isOn).length}</p>
                               </Col>
                               <Col xs={4} sm={4} md={4} lg={4} xl={4}>
                                   <p className={'stats-heading'}>Актуальных</p>
-                                  <p>
+                                  <p onClick={() => filterHandler('actual')}>
                                       {onPositions.length}
                                   </p>
                               </Col>
                               <Col xs={4} sm={4} md={4} lg={4} xl={4}>
                                   <p className={'stats-heading'}>Устарело</p>
-                                  <p className={'text-danger'}>
+                                  <p className={'text-danger'} onClick={() => filterHandler('old')}>
                                       {offPositions.length}
                                   </p>
                               </Col>
@@ -525,14 +616,21 @@ export const RangeList = () => {
           </div>
 
           <div className="RangeList__filters">
-              <Input placeholder="Фильтр" prefix={ <img src={filter} alt={filter} /> } />
+              <Select value={filterValue} onChange={filterHandler} suffixIcon={<img src={filter} alt={filter} />}>
+                  <Option value="off">Без фильтров</Option>
+                  <Option value="active">Активен</Option>
+                  <Option value="disabled">Выключен</Option>
+                  <Option value="actual">Актуален</Option>
+                  <Option value="old">Устарел</Option>
+              </Select>
+              {/*<Input placeholder="Фильтр" prefix={ <img src={filter} alt={filter} /> } />*/}
               <Input placeholder="Поиск" prefix={ <img src={search} alt={search} /> } onChange={(e) => searchHandler(e)} />
           </div>
 
           <div className="RangeList__table">
               <div className={'RangeList__table_container'}>
                   <Table
-                      dataSource={rangeList.filter(searchingFor(term))}
+                      dataSource={filtered.length !== 0 ? filtered.filter(searchingFor(term)) : rangeList.filter(searchingFor(term))}
                       //@ts-ignore
                       columns={columns}
                       rowSelection={{
@@ -567,11 +665,11 @@ export const RangeList = () => {
           </div>
 
           <div className="RangeList__footer">
-              {selectedRows.length !== 0 ?
+              {selectedRowKeys.length !== 0 ?
                   <div className="RangeList__footer_stats">
                       <p>Выбрано</p>
                       <p className={'p-stats'}>
-                          {selectedRows.length}
+                          {selectedRowKeys.length}
                           &nbsp;
                           из
                           &nbsp;

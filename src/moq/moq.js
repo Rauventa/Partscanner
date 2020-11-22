@@ -255,11 +255,21 @@ export const rangeList = [
         key: '1',
         supplier: 'Europarts',
         isOn: false,
-        isOnLock: true,
-        createdAt: '2020-12-01T09:23:10+0000',
-        time: "2020-11-13T09:23:10+0000",
+        createdAt: '2020-11-20T03:35:34+0000',
+        time: "2020-12-13T09:23:10+0000",
         actual: 2000,
         count: 4300,
+        landings: [
+            {
+                name: 'Мой магазин'
+            },
+            {
+                name: 'Выгрузка для Avito.ru'
+            },
+            {
+                name: 'Emex.ru'
+            }
+        ],
         docs: [
             {
                 key: '1',
@@ -307,11 +317,21 @@ export const rangeList = [
         key: '2',
         supplier: 'Armtek',
         isOn: true,
-        isOnLock: true,
-        createdAt: '2015-11-13T19:11:15+0000',
-        time: "2020-01-12T14:52:00+0000",
+        createdAt: '2020-11-20T04:25:15+0000',
+        time: "2020-12-12T14:52:00+0000",
         actual: 10002,
         count: 12333,
+        // landings: [
+        //     {
+        //         name: 'Мой магазин'
+        //     },
+        //     {
+        //         name: 'Выгрузка для Avito.ru'
+        //     },
+        //     {
+        //         name: 'Emex.ru'
+        //     }
+        // ],
         docs: [
             {
                 key: '14',
@@ -349,11 +369,21 @@ export const rangeList = [
         key: '3',
         supplier: 'HUP',
         isOn: true,
-        isOnLock: false,
         createdAt: '2017-11-23T09:23:10+0000',
         time: "2020-11-15T01:00:00+0000",
         actual: 1,
         count: 10,
+        landings: [
+            {
+                name: 'Мой магазин'
+            },
+            {
+                name: 'Выгрузка для Avito.ru'
+            },
+            {
+                name: 'Emex.ru'
+            }
+        ],
         docs: [
             {
                 key: '15',
@@ -381,11 +411,21 @@ export const rangeList = [
         key: '4',
         supplier: 'Casrt',
         isOn: false,
-        isOnLock: false,
-        createdAt: '2015-01-01T09:10:10+0000',
+        createdAt: '2015-12-01T09:10:10+0000',
         time: null,
         actual: 2500,
         count: 140,
+        landings: [
+            {
+                name: 'Мой магазин'
+            },
+            {
+                name: 'Выгрузка для Avito.ru'
+            },
+            {
+                name: 'Emex.ru'
+            }
+        ],
         docs: [
             {
                 key: '1',
@@ -403,11 +443,21 @@ export const rangeList = [
         key: '5',
         supplier: 'sdfsdfsdfsdf',
         isOn: false,
-        isOnLock: false,
         createdAt: '2015-01-01T09:10:10+0000',
         time: null,
         actual: 2,
         count: 140,
+        landings: [
+            {
+                name: 'Мой магазин'
+            },
+            {
+                name: 'Выгрузка для Avito.ru'
+            },
+            {
+                name: 'Emex.ru'
+            }
+        ],
         docs: [
             {
                 key: '1',
@@ -425,11 +475,21 @@ export const rangeList = [
         key: '6',
         supplier: 'qweqweqweqwqe',
         isOn: false,
-        isOnLock: false,
         createdAt: '2015-01-01T09:10:10+0000',
         time: null,
         actual: 2,
         count: 140,
+        landings: [
+            {
+                name: 'Мой магазин'
+            },
+            {
+                name: 'Выгрузка для Avito.ru'
+            },
+            {
+                name: 'Emex.ru'
+            }
+        ],
         docs: [
             {
                 key: '1',
@@ -447,11 +507,21 @@ export const rangeList = [
         key: '7',
         supplier: 'cvbcvbcvb',
         isOn: false,
-        isOnLock: false,
         createdAt: '2015-01-01T09:10:10+0000',
         time: null,
         actual: 2,
         count: 140,
+        landings: [
+            {
+                name: 'Мой магазин'
+            },
+            {
+                name: 'Выгрузка для Avito.ru'
+            },
+            {
+                name: 'Emex.ru'
+            }
+        ],
         docs: [
             {
                 key: '1',

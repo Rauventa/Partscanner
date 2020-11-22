@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {InputNumber, Radio, Select, Switch} from "antd";
-import {CSSTransition, SwitchTransition, Transition} from "react-transition-group";
+import {CSSTransition} from "react-transition-group";
 
 export const RangeLife = (props: any) => {
 

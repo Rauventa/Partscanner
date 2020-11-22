@@ -50,14 +50,18 @@
         button {
           background: #9F9F9F;
           border-radius: 5px;
-          width: 32px;
-          height: 22px;
           display: flex;
           justify-content: center;
           align-items: center;
           border: none;
           color: $white;
           font-size: 18px;
+          padding: 0 0.5rem;
+          outline:none;
+
+          &:first-child {
+            padding: 0 0.7rem;
+          }
 
           &:hover {
             cursor: pointer;
