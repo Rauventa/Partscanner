@@ -32,6 +32,7 @@
     margin-bottom: 2.5rem;
 
     &_heading {
+
       h1 {
         display: flex;
         justify-content: flex-start;
@@ -42,6 +43,7 @@
           margin-left: 1rem;
           color: $bgGrey;
           font-size: 18px;
+          cursor: pointer;
         }
       }
     }
@@ -1135,6 +1137,18 @@
     margin-bottom: 10px;
     padding: 0 40px 40px 40px;
 
+    .active {
+      .ant-select-selector {
+        background-color: #FAFDFF !important;
+      }
+    }
+
+    .disabled {
+      .ant-select-selector {
+        background-color: #fff !important;
+      }
+    }
+
     .ant-input-affix-wrapper, .ant-select {
       width: calc(35% - 10px);
       padding: 0 1rem !important;
@@ -1381,6 +1395,16 @@
     }
   }
 
+  .hide {
+    opacity: 0;
+    transition: ease .5s;
+  }
+
+  .active {
+    opacity: 1;
+    transition: ease .5s;
+  }
+
   &__footer {
     display: flex;
     justify-content: space-between;
@@ -1425,117 +1449,117 @@
   }
 }
 
-.ant-modal {
+.modal-list {
   width: 90% !important;
-}
 
-.modal {
-  &__heading {
-    width: 100%;
-    text-align: center;
+  .modal {
+    &__heading {
+      width: 100%;
+      text-align: center;
 
-    h1 {
-      font-size: 22px;
-      font-weight: 700;
-      line-height: 150%;
+      h1 {
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 150%;
+      }
     }
-  }
 
-  &__table {
-    .ant-table {
-      background-color: transparent;
+    &__table {
+      .ant-table {
+        background-color: transparent;
 
-      table {
-        border-spacing: 0 10px;
+        table {
+          border-spacing: 0 10px;
 
-        thead {
-          &>tr {
-            &>th {
-              font-size: 12px;
-              line-height: 16px;
-              font-weight: normal;
-              background-color: #E3E3E3;
-              border: none;
-              padding: 1.5rem 1rem;
+          thead {
+            &>tr {
+              &>th {
+                font-size: 12px;
+                line-height: 16px;
+                font-weight: normal;
+                background-color: #E3E3E3;
+                border: none;
+                padding: 1.5rem 1rem;
+              }
             }
           }
-        }
 
-        tbody {
-          &>tr {
-            &>td {
-              background-color: #FFFEFE;
-              border-top: 1px solid #EBEBEB;
-              border-bottom: 1px solid #EBEBEB;
-              padding: 20px;
+          tbody {
+            &>tr {
+              &>td {
+                background-color: #FFFEFE;
+                border-top: 1px solid #EBEBEB;
+                border-bottom: 1px solid #EBEBEB;
+                padding: 20px;
 
-              &:first-child {
-                border-radius: 5px 0 0 5px;
-                border-left: 1px solid #EBEBEB;
-              }
+                &:first-child {
+                  border-radius: 5px 0 0 5px;
+                  border-left: 1px solid #EBEBEB;
+                }
 
-              &:last-child {
-                border-radius: 0 5px 5px 0;
-                border-right: 1px solid #EBEBEB;
+                &:last-child {
+                  border-radius: 0 5px 5px 0;
+                  border-right: 1px solid #EBEBEB;
+                }
               }
             }
           }
         }
       }
+
+      .table-time {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        p {
+          margin-bottom: 0;
+
+          &:last-child {
+            font-weight: bold;
+            margin-left: 5px;
+          }
+        }
+      }
+
+      .table-name-date {
+        display: flex;
+
+        &__image {
+          margin-right: 10px;
+        }
+
+        &__content {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+
+          p {
+            margin-bottom: 0.35rem;
+          }
+
+          .text-grey {
+            color: $textLightGrey;
+            margin-bottom: 0;
+          }
+        }
+      }
     }
 
-    .table-time {
+    &__data {
+      width: 100%;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
+      padding-top: 20px;
 
       p {
         margin-bottom: 0;
-
-        &:last-child {
-          font-weight: bold;
-          margin-left: 5px;
-        }
-      }
-    }
-
-    .table-name-date {
-      display: flex;
-
-      &__image {
-        margin-right: 10px;
-      }
-
-      &__content {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-
-        p {
-          margin-bottom: 0.35rem;
-        }
-
-        .text-grey {
-          color: $textLightGrey;
-          margin-bottom: 0;
-        }
       }
     }
   }
 
-  &__data {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 20px;
-
-    p {
-      margin-bottom: 0;
-    }
+  .ant-modal-footer {
+    display: none;
   }
-}
-
-.ant-modal-footer {
-  display: none;
 }

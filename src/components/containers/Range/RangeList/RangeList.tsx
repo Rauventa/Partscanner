@@ -8,8 +8,8 @@ import moment from 'moment';
 import 'moment/locale/ru';
 import excel from '../../../../assets/images/Table/excel.png'
 import csv from '../../../../assets/images/Table/csv.png';
-import timer from '../../../../assets/images/timer.png';
-import notimer from '../../../../assets/images/notimer.png';
+import timer from '../../../../assets/images/timer.svg';
+import notimer from '../../../../assets/images/notimer.svg';
 import {RangeListSwitcher} from "./RangeListSwitcher";
 
 export const RangeList = () => {
@@ -21,6 +21,8 @@ export const RangeList = () => {
     const [term, setTerm] = useState('');
     const [filtered, setFiltered] = useState([]);
     const [filterValue, setFilterValue] = useState('off');
+    const [classes, setClasses] = useState('disabled');
+    const [footer, setFooter] = useState('hide');
 
     // useEffect(() => {
     //     window.scrollTo(0, 0);
@@ -415,12 +417,14 @@ export const RangeList = () => {
             const filtered = rangeList.filter(item => item.isOn);
             //@ts-ignore
             setFiltered(filtered);
-            setFilterValue(value)
+            setFilterValue(value);
+            setClasses('active');
         } else if (value === 'disabled') {
             const filtered = rangeList.filter(item => !item.isOn);
             //@ts-ignore
             setFiltered(filtered);
-            setFilterValue(value)
+            setFilterValue(value);
+            setClasses('active');
         } else if (value === 'actual') {
             const filtered = rangeList.filter(item => {
                 const now = moment();
@@ -437,7 +441,8 @@ export const RangeList = () => {
 
             //@ts-ignore
             setFiltered(filtered);
-            setFilterValue(value)
+            setFilterValue(value);
+            setClasses('active');
         } else if (value === 'old') {
             const filtered = rangeList.filter(item => {
                 const now = moment();
@@ -450,12 +455,18 @@ export const RangeList = () => {
 
             //@ts-ignore
             setFiltered(filtered);
-            setFilterValue(value)
+            setFilterValue(value);
+            setClasses('active');
         } else {
             //@ts-ignore
             setFiltered([]);
-            setFilterValue(value)
+            setFilterValue(value);
+            setClasses('disabled');
         }
+    };
+
+    const showFooterHandler = () => {
+        setFooter('active');
     };
 
   return (
@@ -468,6 +479,7 @@ export const RangeList = () => {
                   onOk={closeModal}
                   //@ts-ignore
                   onCancel={closeModal}
+                  className={'modal-list'}
                   footer={[
                       <Button style={{display: 'none'}}>Отменить</Button>,
                       <Button style={{display: 'none'}}>Ок</Button>
@@ -616,19 +628,18 @@ export const RangeList = () => {
           </div>
 
           <div className="RangeList__filters">
-              <Select value={filterValue} onChange={filterHandler} suffixIcon={<img src={filter} alt={filter} />}>
+              <Select className={classes} value={filterValue} onChange={filterHandler} suffixIcon={<img src={filter} alt={filter} />}>
                   <Option value="off">Без фильтров</Option>
                   <Option value="active">Активен</Option>
                   <Option value="disabled">Выключен</Option>
                   <Option value="actual">Актуален</Option>
                   <Option value="old">Устарел</Option>
               </Select>
-              {/*<Input placeholder="Фильтр" prefix={ <img src={filter} alt={filter} /> } />*/}
               <Input placeholder="Поиск" prefix={ <img src={search} alt={search} /> } onChange={(e) => searchHandler(e)} />
           </div>
 
           <div className="RangeList__table">
-              <div className={'RangeList__table_container'}>
+              <div className={'RangeList__table_container'} onMouseEnter={showFooterHandler}>
                   <Table
                       dataSource={filtered.length !== 0 ? filtered.filter(searchingFor(term)) : rangeList.filter(searchingFor(term))}
                       //@ts-ignore
@@ -664,7 +675,7 @@ export const RangeList = () => {
               </div>
           </div>
 
-          <div className="RangeList__footer">
+          <div className={`RangeList__footer ${footer}`}>
               {selectedRowKeys.length !== 0 ?
                   <div className="RangeList__footer_stats">
                       <p>Выбрано</p>

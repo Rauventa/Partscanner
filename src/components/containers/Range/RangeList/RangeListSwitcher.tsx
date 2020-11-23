@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Switch } from 'antd';
-import lock from '../../../../assets/images/Table/locks/lock.png';
-import unlock from '../../../../assets/images/Table/locks/unlock.png';
+import lock from '../../../../assets/images/Table/locks/lock.svg';
+import unlock from '../../../../assets/images/Table/locks/unlock.svg';
 
 export const RangeListSwitcher = (props: any) => {
 

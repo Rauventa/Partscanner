@@ -173,7 +173,10 @@ export const Range = () => {
         <div className="Range">
 
             <div className="heading">
-                <h1>Ассортимент поставщика</h1>
+                <h1>
+                    <span className={'fas fa-arrow-left'} onClick={history.goBack} />
+                    Ассортимент поставщика
+                </h1>
             </div>
 
             {moqArray.filter(item => item.supplier === title).map(item => {

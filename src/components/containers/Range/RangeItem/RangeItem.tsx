@@ -691,10 +691,14 @@ export const RangeItem = (props) => {
                 <Checkbox>Подтверждаю, что проверил правильность соответствия столбцов</Checkbox>
                 <div className="RangeItem__check_buttons">
                     <div className="RangeItem__check_buttons-first">
-                        <Button type={'primary'}>Применить настройки файла</Button>
+                        <Button
+                            type={'primary'}
+                            onClick={showModal}
+                        >
+                            Применить настройки файла
+                        </Button>
                         <Button
                             className={'ant-btn-secondary'}
-                            //@ts-ignore
                             onClick={showModal}
                         >
                             Сохранить шаблон cоответствия столбцов
