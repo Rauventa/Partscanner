@@ -10,9 +10,10 @@ import { RangeItemRow } from './RangeItemRow';
 import search from '../../../../assets/images/Table/fields/search.svg';
 import correct from "../../../../assets/images/correct.svg";
 import warning from "../../../../assets/images/warning.png";
+import {Header} from "../../../UI/Header/Header";
 
 // @ts-ignore
-export const RangeItem = (props) => {
+export const RangeItem = (props: any) => {
 
     const [rowId, setRowId] = useState({});
     const [pool, setPool] = useState([]);
@@ -56,7 +57,6 @@ export const RangeItem = (props) => {
         setChangeRow(selectRow);
         
     },[changeRow, selectRow]);
-
 
     const history = useHistory();
     const location = useLocation();
@@ -380,6 +380,10 @@ export const RangeItem = (props) => {
        return record.number === rowId.number ? 'selectedRow' : ''
     };
 
+    const header = {
+        heading: 'Настройка файла',
+    };
+
     return (
         <div className={'RangeItem'}>
 
@@ -411,12 +415,10 @@ export const RangeItem = (props) => {
                 <Button type={'primary'} onClick={closeModal}>Применить настройки и сохранить шаблон</Button>
             </Modal>
 
-            <div className="heading">
-                <h1>
-                    <span className={'fas fa-arrow-left'} onClick={history.goBack} />
-                    Настройка файла
-                </h1>
-            </div>
+            <Header
+                data={header}
+            />
+
             <div className="RangeItem__name">
                 <p className={'input-label'}>
                     Название файла

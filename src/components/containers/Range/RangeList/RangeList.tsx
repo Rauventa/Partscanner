@@ -11,6 +11,7 @@ import csv from '../../../../assets/images/Table/csv.png';
 import timer from '../../../../assets/images/timer.svg';
 import notimer from '../../../../assets/images/notimer.svg';
 import {RangeListSwitcher} from "./RangeListSwitcher";
+import {Header} from "../../../UI/Header/Header";
 
 export const RangeList = () => {
 
@@ -469,6 +470,19 @@ export const RangeList = () => {
         setFooter('active');
     };
 
+    const hideFooterHandler = () => {
+        setFooter('hide');
+    };
+
+    const redirectToGroups = () => {
+      history.push('/group');
+    };
+
+    const header = {
+        heading: 'Список ассортиментов',
+    };
+
+
   return (
       <div className={'RangeList'}>
 
@@ -531,12 +545,9 @@ export const RangeList = () => {
               </Modal> : null
           }
 
-          <div className="heading">
-              <h1>
-                  <span className={'fas fa-arrow-left'} onClick={history.goBack} />
-                  Список ассортиментов
-              </h1>
-          </div>
+          <Header
+              data={header}
+          />
 
           <div className="RangeList__head">
               <Button type={'primary'}>
@@ -639,7 +650,7 @@ export const RangeList = () => {
           </div>
 
           <div className="RangeList__table">
-              <div className={'RangeList__table_container'} onMouseEnter={showFooterHandler}>
+              <div className={'RangeList__table_container'} onMouseEnter={showFooterHandler} onMouseLeave={hideFooterHandler}>
                   <Table
                       dataSource={filtered.length !== 0 ? filtered.filter(searchingFor(term)) : rangeList.filter(searchingFor(term))}
                       //@ts-ignore
@@ -675,7 +686,7 @@ export const RangeList = () => {
               </div>
           </div>
 
-          <div className={`RangeList__footer ${footer}`}>
+          <div className={`RangeList__footer ${footer}`} onMouseEnter={showFooterHandler} >
               {selectedRowKeys.length !== 0 ?
                   <div className="RangeList__footer_stats">
                       <p>Выбрано</p>
@@ -697,9 +708,10 @@ export const RangeList = () => {
               <div className="RangeList__footer_buttons">
                   <Button className={'btn-grey-light'}>Удалить</Button>
                   <Button className={'ant-btn-secondary'}>Посмотреть ассортимент</Button>
-                  <Button type={'primary'}>Создать группу товаров</Button>
+                  <Button type={'primary'} onClick={redirectToGroups}>Создать группу товаров</Button>
               </div>
           </div>
+
       </div>
   )
 };

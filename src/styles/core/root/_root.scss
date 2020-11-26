@@ -5,9 +5,9 @@
   font-family: 'Roboto', sans-serif;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+//html {
+//  scroll-behavior: smooth;
+//}
 
 p {
   font-weight: normal;
@@ -61,6 +61,10 @@ button.table-btn, button[disabled].table-btn  {
 
 .small-input-label {
   @include inputLabelSm;
+}
+
+.small-input-light {
+  @include smallInputLight;
 }
 
 .heading-grey-md {

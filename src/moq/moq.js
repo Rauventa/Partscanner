@@ -321,17 +321,6 @@ export const rangeList = [
         time: "2020-12-12T14:52:00+0000",
         actual: 10002,
         count: 12333,
-        // landings: [
-        //     {
-        //         name: 'Мой магазин'
-        //     },
-        //     {
-        //         name: 'Выгрузка для Avito.ru'
-        //     },
-        //     {
-        //         name: 'Emex.ru'
-        //     }
-        // ],
         docs: [
             {
                 key: '14',

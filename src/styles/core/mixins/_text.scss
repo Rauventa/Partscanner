@@ -68,3 +68,10 @@
   font-weight: normal;
   color: $textLightGrey;
 }
+
+@mixin smallInputLight {
+  font-size: 12px;
+  line-height: normal;
+  font-weight: normal;
+  color: $textGrey;
+}

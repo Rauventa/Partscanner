@@ -4,6 +4,7 @@ import {Range} from '../containers/Range/Range'
 import { RangeItem } from '../containers/Range/RangeItem/RangeItem';
 import { RangeAdd } from '../containers/Range/RangeAdd/RangeAdd';
 import { RangeList } from '../containers/Range/RangeList/RangeList';
+import {Group} from "../containers/Group/Group";
 
 export const Router = () => {
     return (
@@ -19,6 +20,9 @@ export const Router = () => {
             </Route>
             <Route path={'/list'} exact>
                 <RangeList />
+            </Route>
+            <Route path={'/group'}>
+                <Group />
             </Route>
         </Switch>
     )

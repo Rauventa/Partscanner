@@ -6,7 +6,11 @@
 
 @import './core/root/layout';
 @import './core/root/root';
+
+//Page blocks here
+
 @import 'blocks/Range/range';
+@import 'blocks/Group/group';
 
 //UI blocks here ---
 

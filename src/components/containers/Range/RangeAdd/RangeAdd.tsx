@@ -6,6 +6,7 @@ import {
     CSSTransition,
     TransitionGroup
 } from 'react-transition-group'
+import {Header} from "../../../UI/Header/Header";
 
 export const RangeAdd = (props: any) => {
 
@@ -148,15 +149,16 @@ export const RangeAdd = (props: any) => {
         ])
     };
 
+    const header = {
+        heading: 'Создание поставщика',
+    };
+
     return (
         <div className={'RangeAdd'}>
 
-            <div className="heading">
-                <h1>
-                    <span className={'fas fa-arrow-left'} onClick={history.goBack} />
-                    Создание поставщика
-                </h1>
-            </div>
+            <Header
+                data={header}
+            />
 
             <div className="RangeAdd__name">
                 <p className={'input-label'}>

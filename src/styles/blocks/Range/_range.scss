@@ -1,16 +1,5 @@
 .Range, .RangeItem, .RangeAdd, .RangeList {
 
-  //&__heading {
-  //   width: 100%;
-  //   height: auto;
-  //   padding: 2.5rem;
-  //   background-color: $bgLight;
-  //
-  //   h1 {
-  //     @include headingText;
-  //   }
-  // }
-
   &__supplier {
     padding: 2.5rem;
 
@@ -153,6 +142,7 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      transition: all .3s;
 
       &:hover {
         border: 1px solid $textBlue;
@@ -324,22 +314,6 @@
     padding: 0.5rem 1rem !important;
     border-radius: 5px !important;
   }
-
-  //&__heading {
-  //  h1 {
-  //    span {
-  //      color: $textLightGrey;
-  //      margin-right: 1rem;
-  //      font-size: 18px;
-  //      transition: all .3s;
-  //
-  //      &:hover {
-  //        cursor: pointer;
-  //        color: $textLight;
-  //      }
-  //    }
-  //  }
-  //}
 
   &__name {
     padding: 40px 2.5rem;
