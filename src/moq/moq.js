@@ -250,6 +250,21 @@ export const defaultColumns = [
     },
 ];
 
+export const defaultConditions = [
+    {
+        name: 'Не содержит',
+        value: 'no-contain'
+    },
+    {
+        name: 'Между',
+        value: 'between'
+    },
+    {
+        name: 'Не заканчивается на',
+        value: 'no-end-of'
+    }
+];
+
 export const rangeList = [
     {
         key: '1',
@@ -525,3 +540,49 @@ export const rangeList = [
         ]
     }
 ];
+
+export const defaultGroups = {
+    name: 'Тозмоза',
+    data: [
+        {
+            key: 1,
+            id: 1,
+            customer: 'Камаз',
+            catalogNumber: 123333212,
+            name: 'Колодки передние',
+            vendor: '123123131 UZD',
+            price: 1800,
+            count: 123333
+        },
+        {
+            key: 2,
+            id: 2,
+            customer: 'Porche',
+            catalogNumber: 2234234,
+            name: 'Двигатель',
+            vendor: '2222 UZD',
+            price: 520000,
+            count: 333
+        },
+        {
+            key: 3,
+            id: 3,
+            customer: 'УАЗ',
+            catalogNumber: 43432324,
+            name: 'Коробка передач',
+            vendor: '555444 UZD',
+            price: 90000,
+            count: 1800
+        },
+        {
+            key: 4,
+            id: 4,
+            customer: 'Daewoo',
+            catalogNumber: 5450003453,
+            name: 'Руль',
+            vendor: '9932432101 UZD',
+            price: 5200,
+            count: 72300
+        }
+    ]
+};
