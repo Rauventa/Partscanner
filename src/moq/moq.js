@@ -241,7 +241,7 @@ export const defaultColumns = [
         value: 'vendor'
     },
     {
-        name: 'Цена закупки',
+        name: 'Цена закупки, руб',
         value: 'price'
     },
     {
@@ -252,16 +252,34 @@ export const defaultColumns = [
 
 export const defaultConditions = [
     {
-        name: 'Не содержит',
-        value: 'no-contain'
+        name: 'Содержит',
+        value: 'contain',
+        color: 'blue'
     },
     {
-        name: 'Между',
-        value: 'between'
+        name: 'Не содержит',
+        value: 'no-contain',
+        color: 'red'
+    },
+    {
+        name: 'Начинается с',
+        value: 'start',
+        color: 'blue'
+    },
+    {
+        name: 'Не начинается с',
+        value: 'no-start',
+        color: 'red'
+    },
+    {
+        name: 'Заканчивается на',
+        value: 'end',
+        color: 'blue'
     },
     {
         name: 'Не заканчивается на',
-        value: 'no-end-of'
+        value: 'no-end',
+        color: 'red'
     }
 ];
 

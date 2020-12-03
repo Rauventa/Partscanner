@@ -1,21 +1,39 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Button} from "antd";
 import {PrimaryFilterField} from "./PrimaryFilterField";
 
 export const PrimaryFilter = (props: any) => {
 
-    const [data, setData] = useState(props.item);
+    const [data, setData] = useState([]);
+    
+    useEffect(() => {
+        setData(props.item)
+    }, [props.item]);
 
     const addFieldsHandler = () => {
       const newData = [...data];
 
       newData.push({
+          //@ts-ignore
           field: '',
+          //@ts-ignore
           condition: '',
+          //@ts-ignore
           value: ''
       });
 
       setData(newData);
+    };
+
+    const changeItemHandler = (id: any, item: any) => {
+        const newData = [...data];
+
+        //@ts-ignore
+        newData.splice(id, 1, item);
+
+        setData(newData);
+
+        props.changePrimaryData(props.id, newData)
     };
 
     const deleteFilterHandler = () => {
@@ -49,6 +67,7 @@ export const PrimaryFilter = (props: any) => {
                           //@ts-ignore
                           item={field}
                           onDelete={deleteField}
+                          changeItemHandler={changeItemHandler}
                       />
                   )
               })}

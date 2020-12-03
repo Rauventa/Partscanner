@@ -62,7 +62,7 @@
   &__filters {
     padding: 20px 40px 40px 40px;
     border-top: 1px solid #CFCFCF;
-    border-bottom: 1px solid #CFCFCF;
+    //border-bottom: 1px solid #CFCFCF;
     display: flex;
     align-items: flex-start;
 
@@ -246,6 +246,12 @@
             justify-content: space-between;
             align-items: flex-end;
             margin-top: 10px;
+
+            &:not(:first-child) {
+              p {
+                display: none;
+              }
+            }
           }
 
           &_place {
@@ -272,6 +278,26 @@
                 height: 40px !important;
                 padding: 0 !important;
               }
+            }
+
+            &-inputs {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+
+              .ant-input-affix-wrapper {
+                width: calc(50% - 20px);
+              }
+
+              h1 {
+                margin-bottom: 0;
+                font-size: 36px;
+                line-height: initial;
+              }
+            }
+
+            .ant-input-affix-wrapper {
+              padding: 0 22px 0 0 !important;
             }
 
             .ant-select {
@@ -394,6 +420,12 @@
             justify-content: space-between;
             align-items: flex-end;
             margin-top: 10px;
+
+            &:not(:first-child) {
+              p {
+                display: none;
+              }
+            }
           }
 
           &_place {
@@ -519,6 +551,7 @@
   &__table {
     padding: 40px 40px 40px 40px;
     background-color: $bgLightGrey;
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.05);
 
     &_actions {
       display: flex;

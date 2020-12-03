@@ -15,9 +15,9 @@ export const Group = () => {
     const [filters, setFilters] = useState(false);
     const [primary, setPrimary] = useState([[
         {
-            field: 'Производитель',
-            condition: 'Не содержит',
-            value: 'Камаз'
+            field: '',
+            condition: '',
+            value: ''
         }
     ]]);
 
@@ -25,7 +25,7 @@ export const Group = () => {
 
     const history = useHistory();
 
-    const { Option } = Select;
+    const { Option, OptGroup } = Select;
 
     const { TabPane } = Tabs;
 
@@ -114,13 +114,17 @@ export const Group = () => {
         //TODO написать нормальное удаление (Пока работает криво и удаляет не то, что нужно)
         const newPrimary = [...primary];
 
-        console.log(primary)
-
         newPrimary.splice(id, 1);
 
-        console.log(newPrimary)
-
         setPrimary(newPrimary)
+    };
+
+    const changePrimaryData = (id: any, data: any) => {
+      const newPrimary = [...primary];
+
+      newPrimary.splice(id, 1, data);
+
+      setPrimary(newPrimary)
     };
 
     return (
@@ -216,7 +220,18 @@ export const Group = () => {
           {filters ?
               <div className="Group__data">
                   <div className="Group__data_saved">
-
+                      <p className={'input-label'}>
+                          Сохраненные фильтры
+                      </p>
+                      <Select defaultValue="lucy">
+                          <OptGroup label="Группы (предустановки)">
+                              <Option value="jack">Jack</Option>
+                              <Option value="lucy">Lucy</Option>
+                          </OptGroup>
+                          <OptGroup label="Группы пользователя">
+                              <Option value="Yiminghe">yiminghe</Option>
+                          </OptGroup>
+                      </Select>
                   </div>
                   <div className="Group__data_primary">
                       <p className={'primary-filter-text'}>Основные фильтры</p>
@@ -230,6 +245,7 @@ export const Group = () => {
                                     //@ts-ignore
                                     item={item}
                                     onDelete={deletePrimary}
+                                    changePrimaryData={changePrimaryData}
                                 />
                             )
                         }) : null

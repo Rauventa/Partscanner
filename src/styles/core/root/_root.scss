@@ -292,3 +292,37 @@ textarea.ant-input {
   transform: scale(0.9);
   transition: opacity 300ms, transform 300ms;
 }
+
+//select styles at groups page
+
+.ant-select-item-option-content {
+  font-weight: normal !important;
+}
+
+.blue {
+  .ant-select-item-option-content {
+    color: $textBlue;
+  }
+}
+
+.red {
+  .ant-select-item-option-content {
+    color: #EB5757;
+  }
+}
+
+.ant-select-multiple {
+  .ant-select-selector {
+    padding: 0.3rem 1rem !important;
+  }
+
+  .ant-select-selection-item {
+    background-color: #DDF7FF !important;
+    border: 1px solid #DDF7FF !important;
+    color: #0596C4;
+  }
+}
+
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: #C2F0FF !important;
+}
