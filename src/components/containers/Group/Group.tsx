@@ -7,8 +7,10 @@ import warning from "../../../assets/images/warning.png";
 import filter from "../../../assets/images/Table/fields/filter.svg";
 import {defaultGroups, defaultColumns, defaultConditions} from "../../../moq/moq";
 import {PrimaryFilter} from "./Primary/PrimaryFilter";
+import { connect } from 'react-redux';
+import {renderFilters} from "../../../store/actions/Group/groupActions";
 
-export const Group = () => {
+const Group = (props: any) => {
 
     //  State
 
@@ -89,6 +91,8 @@ export const Group = () => {
         },
     ];
 
+    const coverage = (100/defaultGroups.data.length)*props.filtered.length;
+
     //  Methods
 
     const filtersSwitcher = () => {
@@ -144,14 +148,15 @@ export const Group = () => {
               <div className="Group__info_content">
                   <div className="Group__info_content-item">
                       <p className={'small-input-label'}>Всего позиций</p>
-                      <p className={'heading-black-md-big'}>13990</p>
+                      <p className={'heading-black-md-big'}>{props.filtered.length}</p>
                   </div>
                   <div className="Group__info_content-item">
                       <p className={'small-input-light'}>Охват ассортимента</p>
-                      <p className={'heading-black-md-big'}>30%</p>
-                      <Progress percent={30} showInfo={false} />
+                      <p className={'heading-black-md-big'}>{coverage} %</p>
+                      <Progress percent={coverage} showInfo={false} />
                       <p className={'stats-text'}>
-                          12333
+                          {props.filtered.length}
+                          &nbsp;
                           <span>из</span>
                           &nbsp;
                           {defaultGroups.data.length}
@@ -207,7 +212,7 @@ export const Group = () => {
                           <div className="data-item">
                               <p>Позиций</p>
                               <p>
-                                  <b>13191</b>
+                                  <b>{props.filtered.length}</b>
                               </p>
                           </div>
                       </div>
@@ -367,7 +372,7 @@ export const Group = () => {
                   <div className="Group__data_info">
                       <p>
                           Отфильтровано позиций:
-                          <span>5883</span>
+                          <span>{props.filtered.length}</span>
                       </p>
                       <div className="Group__data_info-buttons">
                           <div className="buttons-block">
@@ -398,10 +403,10 @@ export const Group = () => {
                       <p className={'heading-grey-md'}>Отображение</p>
 
                       <Tabs defaultActiveKey="2">
-                          <TabPane tab="Сейчас в группе 10000" key="1">
+                          <TabPane tab={`Сейчас в группе ${props.filtered.length}`} key="1">
                               <Table
                                   //@ts-ignore
-                                  dataSource={defaultGroups.data}
+                                  dataSource={props.filtered}
                                   columns={columns}
                               />
                           </TabPane>
@@ -434,7 +439,7 @@ export const Group = () => {
                               </p>
                               <p className={'footer-groups'}>
                                   Сгруппировано по фильтрам
-                                  <span className={'heading-black-md-big'}>4555</span>
+                                  <span className={'heading-black-md-big'}>{props.filtered.length}</span>
                                   из
                                   &nbsp;
                                   {defaultGroups.data.length}
@@ -484,3 +489,17 @@ export const Group = () => {
       </div>
   )
 };
+
+function mapStateToProps(state: any) {
+    return {
+        filtered: state.groupReducer.filtered
+    }
+}
+
+function mapDispatchToProps(dispatch: any) {
+    return {
+        renderFilters: (filtered: any) => dispatch(renderFilters(filtered))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Group);

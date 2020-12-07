@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Button} from "antd";
-import {PrimaryFilterField} from "./PrimaryFilterField";
+import PrimaryFilterField from './PrimaryFilterField';
 
 export const PrimaryFilter = (props: any) => {
 
@@ -64,6 +64,7 @@ export const PrimaryFilter = (props: any) => {
                       <PrimaryFilterField
                           key={index}
                           id={index}
+                          parentId={props.id}
                           //@ts-ignore
                           item={field}
                           onDelete={deleteField}
